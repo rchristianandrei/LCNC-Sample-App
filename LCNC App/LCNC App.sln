@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35527.113 d17.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "LCNC App", "LCNC App.vbproj", "{99F245A4-3D81-4E74-92C6-8647DAE0C56F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LCNC App.Tests", "..\LCNC App.Tests\LCNC App.Tests.csproj", "{B85294D5-D719-4258-9813-6053B23A544E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{99F245A4-3D81-4E74-92C6-8647DAE0C56F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99F245A4-3D81-4E74-92C6-8647DAE0C56F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99F245A4-3D81-4E74-92C6-8647DAE0C56F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99F245A4-3D81-4E74-92C6-8647DAE0C56F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B85294D5-D719-4258-9813-6053B23A544E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B85294D5-D719-4258-9813-6053B23A544E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B85294D5-D719-4258-9813-6053B23A544E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B85294D5-D719-4258-9813-6053B23A544E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
