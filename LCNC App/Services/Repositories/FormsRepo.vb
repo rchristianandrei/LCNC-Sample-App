@@ -6,7 +6,7 @@ Public Class FormsRepo
 
     Private ReadOnly connString = "mongodb://localhost:27017"
     Private ReadOnly dbName = "lcncApp"
-    Private ReadOnly colName = colName
+    Private ReadOnly colName = "forms"
 
     Public Async Function Save(form As FormModel) As Task Implements IFormsRepo.Save
         Dim client As New MongoClient(New MongoUrl(connString))

@@ -40,6 +40,16 @@
             Me.View.FormHeight = value
         End Set
     End Property
+
+    Public Property SubmitText() As String
+        Get
+            Return Me.View.SubmitText
+        End Get
+        Set(ByVal value As String)
+            Me.preview.SubmitButton.Text = value
+            Me.View.SubmitText = value
+        End Set
+    End Property
 #End Region
 
 #Region "Private Methods"
@@ -47,6 +57,8 @@
         Me.View.FormText = Me.preview.Text
         Me.View.FormWidth = Me.preview.Width
         Me.View.FormHeight = Me.preview.Height
+
+        Me.View.SubmitText = Me.preview.SubmitButton.Text
     End Sub
 
     Private Sub PrepareEventHandlers()
@@ -55,6 +67,8 @@
         AddHandler Me.View.FormTextChanged, AddressOf Me.FormTextChanged
         AddHandler Me.View.FormWidthChanged, AddressOf Me.FormWidthChanged
         AddHandler Me.View.FormHeightChanged, AddressOf Me.FormHeightChanged
+
+        AddHandler Me.View.SubmitTextChanged, AddressOf Me.SubmitTextChanged
     End Sub
 #End Region
 
@@ -90,6 +104,10 @@
         End If
 
         Me.preview.Height = height
+    End Sub
+
+    Private Sub SubmitTextChanged()
+        Me.preview.SubmitButton.Text = Me.View.SubmitText
     End Sub
 #End Region
 End Class

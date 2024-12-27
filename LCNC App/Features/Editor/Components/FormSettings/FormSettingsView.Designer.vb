@@ -22,20 +22,14 @@ Partial Class FormSettingsView
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim CustomizableEdges1 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges2 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges3 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges4 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges5 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges6 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges7 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges8 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim CustomizableEdges9 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim CustomizableEdges10 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim CustomizableEdges11 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim CustomizableEdges12 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim CustomizableEdges13 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim CustomizableEdges14 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges15 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges16 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         lblTitle = New Guna.UI2.WinForms.Guna2HtmlLabel()
         txtTitle = New Guna.UI2.WinForms.Guna2TextBox()
         lblFormSettings = New Guna.UI2.WinForms.Guna2HtmlLabel()
@@ -45,14 +39,8 @@ Partial Class FormSettingsView
         txtWidth = New Guna.UI2.WinForms.Guna2TextBox()
         lblWidth = New Guna.UI2.WinForms.Guna2HtmlLabel()
         grpSubmit = New GroupBox()
-        txtSubmitHeight = New Guna.UI2.WinForms.Guna2TextBox()
-        lblSubmitHeight = New Guna.UI2.WinForms.Guna2HtmlLabel()
-        txtSubmitWidth = New Guna.UI2.WinForms.Guna2TextBox()
-        lblSubmitWidth = New Guna.UI2.WinForms.Guna2HtmlLabel()
-        txtSubmitY = New Guna.UI2.WinForms.Guna2TextBox()
-        lblSubmitY = New Guna.UI2.WinForms.Guna2HtmlLabel()
-        txtSubmitX = New Guna.UI2.WinForms.Guna2TextBox()
-        lblSubmitX = New Guna.UI2.WinForms.Guna2HtmlLabel()
+        txtSubmitText = New Guna.UI2.WinForms.Guna2TextBox()
+        lblSubmitText = New Guna.UI2.WinForms.Guna2HtmlLabel()
         grpSize.SuspendLayout()
         grpSubmit.SuspendLayout()
         SuspendLayout()
@@ -69,7 +57,7 @@ Partial Class FormSettingsView
         ' txtTitle
         ' 
         txtTitle.BorderRadius = 6
-        txtTitle.CustomizableEdges = CustomizableEdges1
+        txtTitle.CustomizableEdges = CustomizableEdges9
         txtTitle.DefaultText = ""
         txtTitle.DisabledState.BorderColor = Color.FromArgb(CByte(208), CByte(208), CByte(208))
         txtTitle.DisabledState.FillColor = Color.FromArgb(CByte(226), CByte(226), CByte(226))
@@ -84,7 +72,7 @@ Partial Class FormSettingsView
         txtTitle.PasswordChar = ChrW(0)
         txtTitle.PlaceholderText = ""
         txtTitle.SelectedText = ""
-        txtTitle.ShadowDecoration.CustomizableEdges = CustomizableEdges2
+        txtTitle.ShadowDecoration.CustomizableEdges = CustomizableEdges10
         txtTitle.Size = New Size(130, 27)
         txtTitle.TabIndex = 1
         ' 
@@ -115,7 +103,7 @@ Partial Class FormSettingsView
         ' txtHeight
         ' 
         txtHeight.BorderRadius = 6
-        txtHeight.CustomizableEdges = CustomizableEdges3
+        txtHeight.CustomizableEdges = CustomizableEdges11
         txtHeight.DefaultText = ""
         txtHeight.DisabledState.BorderColor = Color.FromArgb(CByte(208), CByte(208), CByte(208))
         txtHeight.DisabledState.FillColor = Color.FromArgb(CByte(226), CByte(226), CByte(226))
@@ -130,7 +118,7 @@ Partial Class FormSettingsView
         txtHeight.PasswordChar = ChrW(0)
         txtHeight.PlaceholderText = ""
         txtHeight.SelectedText = ""
-        txtHeight.ShadowDecoration.CustomizableEdges = CustomizableEdges4
+        txtHeight.ShadowDecoration.CustomizableEdges = CustomizableEdges12
         txtHeight.Size = New Size(105, 27)
         txtHeight.TabIndex = 5
         ' 
@@ -146,7 +134,7 @@ Partial Class FormSettingsView
         ' txtWidth
         ' 
         txtWidth.BorderRadius = 6
-        txtWidth.CustomizableEdges = CustomizableEdges5
+        txtWidth.CustomizableEdges = CustomizableEdges13
         txtWidth.DefaultText = ""
         txtWidth.DisabledState.BorderColor = Color.FromArgb(CByte(208), CByte(208), CByte(208))
         txtWidth.DisabledState.FillColor = Color.FromArgb(CByte(226), CByte(226), CByte(226))
@@ -161,7 +149,7 @@ Partial Class FormSettingsView
         txtWidth.PasswordChar = ChrW(0)
         txtWidth.PlaceholderText = ""
         txtWidth.SelectedText = ""
-        txtWidth.ShadowDecoration.CustomizableEdges = CustomizableEdges6
+        txtWidth.ShadowDecoration.CustomizableEdges = CustomizableEdges14
         txtWidth.Size = New Size(105, 27)
         txtWidth.TabIndex = 3
         ' 
@@ -176,144 +164,45 @@ Partial Class FormSettingsView
         ' 
         ' grpSubmit
         ' 
-        grpSubmit.Controls.Add(txtSubmitHeight)
-        grpSubmit.Controls.Add(lblSubmitHeight)
-        grpSubmit.Controls.Add(txtSubmitWidth)
-        grpSubmit.Controls.Add(lblSubmitWidth)
-        grpSubmit.Controls.Add(txtSubmitY)
-        grpSubmit.Controls.Add(lblSubmitY)
-        grpSubmit.Controls.Add(txtSubmitX)
-        grpSubmit.Controls.Add(lblSubmitX)
+        grpSubmit.Controls.Add(txtSubmitText)
+        grpSubmit.Controls.Add(lblSubmitText)
         grpSubmit.Location = New Point(3, 171)
         grpSubmit.Name = "grpSubmit"
-        grpSubmit.Size = New Size(162, 151)
+        grpSubmit.Size = New Size(162, 51)
         grpSubmit.TabIndex = 6
         grpSubmit.TabStop = False
         grpSubmit.Text = "Submit Button"
         ' 
-        ' txtSubmitHeight
+        ' txtSubmitText
         ' 
-        txtSubmitHeight.BorderRadius = 6
-        txtSubmitHeight.CustomizableEdges = CustomizableEdges7
-        txtSubmitHeight.DefaultText = ""
-        txtSubmitHeight.DisabledState.BorderColor = Color.FromArgb(CByte(208), CByte(208), CByte(208))
-        txtSubmitHeight.DisabledState.FillColor = Color.FromArgb(CByte(226), CByte(226), CByte(226))
-        txtSubmitHeight.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
-        txtSubmitHeight.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
-        txtSubmitHeight.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        txtSubmitHeight.Font = New Font("Segoe UI", 9F)
-        txtSubmitHeight.ForeColor = SystemColors.ControlText
-        txtSubmitHeight.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        txtSubmitHeight.Location = New Point(51, 116)
-        txtSubmitHeight.Name = "txtSubmitHeight"
-        txtSubmitHeight.PasswordChar = ChrW(0)
-        txtSubmitHeight.PlaceholderText = ""
-        txtSubmitHeight.SelectedText = ""
-        txtSubmitHeight.ShadowDecoration.CustomizableEdges = CustomizableEdges8
-        txtSubmitHeight.Size = New Size(105, 27)
-        txtSubmitHeight.TabIndex = 9
+        txtSubmitText.BorderRadius = 6
+        txtSubmitText.CustomizableEdges = CustomizableEdges15
+        txtSubmitText.DefaultText = ""
+        txtSubmitText.DisabledState.BorderColor = Color.FromArgb(CByte(208), CByte(208), CByte(208))
+        txtSubmitText.DisabledState.FillColor = Color.FromArgb(CByte(226), CByte(226), CByte(226))
+        txtSubmitText.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
+        txtSubmitText.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
+        txtSubmitText.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
+        txtSubmitText.Font = New Font("Segoe UI", 9F)
+        txtSubmitText.ForeColor = SystemColors.ControlText
+        txtSubmitText.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
+        txtSubmitText.Location = New Point(51, 17)
+        txtSubmitText.Name = "txtSubmitText"
+        txtSubmitText.PasswordChar = ChrW(0)
+        txtSubmitText.PlaceholderText = ""
+        txtSubmitText.SelectedText = ""
+        txtSubmitText.ShadowDecoration.CustomizableEdges = CustomizableEdges16
+        txtSubmitText.Size = New Size(105, 27)
+        txtSubmitText.TabIndex = 3
         ' 
-        ' lblSubmitHeight
+        ' lblSubmitText
         ' 
-        lblSubmitHeight.BackColor = Color.Transparent
-        lblSubmitHeight.Location = New Point(6, 121)
-        lblSubmitHeight.Name = "lblSubmitHeight"
-        lblSubmitHeight.Size = New Size(39, 17)
-        lblSubmitHeight.TabIndex = 8
-        lblSubmitHeight.Text = "Height"
-        ' 
-        ' txtSubmitWidth
-        ' 
-        txtSubmitWidth.BorderRadius = 6
-        txtSubmitWidth.CustomizableEdges = CustomizableEdges9
-        txtSubmitWidth.DefaultText = ""
-        txtSubmitWidth.DisabledState.BorderColor = Color.FromArgb(CByte(208), CByte(208), CByte(208))
-        txtSubmitWidth.DisabledState.FillColor = Color.FromArgb(CByte(226), CByte(226), CByte(226))
-        txtSubmitWidth.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
-        txtSubmitWidth.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
-        txtSubmitWidth.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        txtSubmitWidth.Font = New Font("Segoe UI", 9F)
-        txtSubmitWidth.ForeColor = SystemColors.ControlText
-        txtSubmitWidth.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        txtSubmitWidth.Location = New Point(51, 83)
-        txtSubmitWidth.Name = "txtSubmitWidth"
-        txtSubmitWidth.PasswordChar = ChrW(0)
-        txtSubmitWidth.PlaceholderText = ""
-        txtSubmitWidth.SelectedText = ""
-        txtSubmitWidth.ShadowDecoration.CustomizableEdges = CustomizableEdges10
-        txtSubmitWidth.Size = New Size(105, 27)
-        txtSubmitWidth.TabIndex = 7
-        ' 
-        ' lblSubmitWidth
-        ' 
-        lblSubmitWidth.BackColor = Color.Transparent
-        lblSubmitWidth.Location = New Point(6, 88)
-        lblSubmitWidth.Name = "lblSubmitWidth"
-        lblSubmitWidth.Size = New Size(35, 17)
-        lblSubmitWidth.TabIndex = 6
-        lblSubmitWidth.Text = "Width"
-        ' 
-        ' txtSubmitY
-        ' 
-        txtSubmitY.BorderRadius = 6
-        txtSubmitY.CustomizableEdges = CustomizableEdges11
-        txtSubmitY.DefaultText = ""
-        txtSubmitY.DisabledState.BorderColor = Color.FromArgb(CByte(208), CByte(208), CByte(208))
-        txtSubmitY.DisabledState.FillColor = Color.FromArgb(CByte(226), CByte(226), CByte(226))
-        txtSubmitY.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
-        txtSubmitY.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
-        txtSubmitY.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        txtSubmitY.Font = New Font("Segoe UI", 9F)
-        txtSubmitY.ForeColor = SystemColors.ControlText
-        txtSubmitY.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        txtSubmitY.Location = New Point(51, 50)
-        txtSubmitY.Name = "txtSubmitY"
-        txtSubmitY.PasswordChar = ChrW(0)
-        txtSubmitY.PlaceholderText = ""
-        txtSubmitY.SelectedText = ""
-        txtSubmitY.ShadowDecoration.CustomizableEdges = CustomizableEdges12
-        txtSubmitY.Size = New Size(105, 27)
-        txtSubmitY.TabIndex = 5
-        ' 
-        ' lblSubmitY
-        ' 
-        lblSubmitY.BackColor = Color.Transparent
-        lblSubmitY.Location = New Point(6, 55)
-        lblSubmitY.Name = "lblSubmitY"
-        lblSubmitY.Size = New Size(10, 17)
-        lblSubmitY.TabIndex = 4
-        lblSubmitY.Text = "Y"
-        ' 
-        ' txtSubmitX
-        ' 
-        txtSubmitX.BorderRadius = 6
-        txtSubmitX.CustomizableEdges = CustomizableEdges13
-        txtSubmitX.DefaultText = ""
-        txtSubmitX.DisabledState.BorderColor = Color.FromArgb(CByte(208), CByte(208), CByte(208))
-        txtSubmitX.DisabledState.FillColor = Color.FromArgb(CByte(226), CByte(226), CByte(226))
-        txtSubmitX.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
-        txtSubmitX.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
-        txtSubmitX.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        txtSubmitX.Font = New Font("Segoe UI", 9F)
-        txtSubmitX.ForeColor = SystemColors.ControlText
-        txtSubmitX.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        txtSubmitX.Location = New Point(51, 17)
-        txtSubmitX.Name = "txtSubmitX"
-        txtSubmitX.PasswordChar = ChrW(0)
-        txtSubmitX.PlaceholderText = ""
-        txtSubmitX.SelectedText = ""
-        txtSubmitX.ShadowDecoration.CustomizableEdges = CustomizableEdges14
-        txtSubmitX.Size = New Size(105, 27)
-        txtSubmitX.TabIndex = 3
-        ' 
-        ' lblSubmitX
-        ' 
-        lblSubmitX.BackColor = Color.Transparent
-        lblSubmitX.Location = New Point(6, 22)
-        lblSubmitX.Name = "lblSubmitX"
-        lblSubmitX.Size = New Size(10, 17)
-        lblSubmitX.TabIndex = 2
-        lblSubmitX.Text = "X"
+        lblSubmitText.BackColor = Color.Transparent
+        lblSubmitText.Location = New Point(6, 22)
+        lblSubmitText.Name = "lblSubmitText"
+        lblSubmitText.Size = New Size(25, 17)
+        lblSubmitText.TabIndex = 2
+        lblSubmitText.Text = "Text"
         ' 
         ' FormSettingsView
         ' 
@@ -344,13 +233,7 @@ Partial Class FormSettingsView
     Friend WithEvents txtHeight As Guna.UI2.WinForms.Guna2TextBox
     Friend WithEvents lblHeight As Guna.UI2.WinForms.Guna2HtmlLabel
     Friend WithEvents grpSubmit As GroupBox
-    Friend WithEvents txtSubmitY As Guna.UI2.WinForms.Guna2TextBox
-    Friend WithEvents lblSubmitY As Guna.UI2.WinForms.Guna2HtmlLabel
-    Friend WithEvents txtSubmitX As Guna.UI2.WinForms.Guna2TextBox
-    Friend WithEvents lblSubmitX As Guna.UI2.WinForms.Guna2HtmlLabel
-    Friend WithEvents txtSubmitHeight As Guna.UI2.WinForms.Guna2TextBox
-    Friend WithEvents lblSubmitHeight As Guna.UI2.WinForms.Guna2HtmlLabel
-    Friend WithEvents txtSubmitWidth As Guna.UI2.WinForms.Guna2TextBox
-    Friend WithEvents lblSubmitWidth As Guna.UI2.WinForms.Guna2HtmlLabel
+    Friend WithEvents txtSubmitText As Guna.UI2.WinForms.Guna2TextBox
+    Friend WithEvents lblSubmitText As Guna.UI2.WinForms.Guna2HtmlLabel
 
 End Class

@@ -8,4 +8,6 @@ Public Class FormModel
     Public Property FormWidth As Integer
 
     Public Property FormHeight As Integer
+
+    Public Property SubmitText As String
 End Class

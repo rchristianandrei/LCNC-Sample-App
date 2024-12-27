@@ -29,7 +29,7 @@ Partial Class FormView
         ' 
         ' btnSubmit
         ' 
-        btnSubmit.Anchor = AnchorStyles.Bottom Or AnchorStyles.Right
+        btnSubmit.Anchor = AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
         btnSubmit.BorderRadius = 6
         btnSubmit.CustomizableEdges = CustomizableEdges1
         btnSubmit.DisabledState.BorderColor = Color.DarkGray
@@ -38,10 +38,10 @@ Partial Class FormView
         btnSubmit.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
         btnSubmit.Font = New Font("Segoe UI", 9F)
         btnSubmit.ForeColor = Color.White
-        btnSubmit.Location = New Point(409, 413)
+        btnSubmit.Location = New Point(0, 416)
         btnSubmit.Name = "btnSubmit"
         btnSubmit.ShadowDecoration.CustomizableEdges = CustomizableEdges2
-        btnSubmit.Size = New Size(86, 34)
+        btnSubmit.Size = New Size(498, 34)
         btnSubmit.TabIndex = 1
         btnSubmit.Text = "Submit"
         ' 

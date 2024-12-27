@@ -2,6 +2,9 @@
 
 Public Class FormView
 #Region "Properties"
+    Public ReadOnly Property WidthOffset = 16
+    Public ReadOnly Property HeightOffset = 36
+
     Public ReadOnly Property SubmitButton() As Guna2Button
         Get
             Return Me.btnSubmit

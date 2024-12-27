@@ -49,6 +49,7 @@
         Me.formModel.FormText = Me.formSettings.FormText
         Me.formModel.FormWidth = Me.formSettings.FormWidth
         Me.formModel.FormHeight = Me.formSettings.FormHeight
+        Me.formModel.SubmitText = Me.formSettings.SubmitText
 
         Try
             Await Me.formsRepo.Save(Me.formModel)
