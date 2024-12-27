@@ -10,5 +10,11 @@ Public Class FormView
             Return Me.btnSubmit
         End Get
     End Property
+
+    Public ReadOnly Property ComponentsPanel() As Guna2Panel
+        Get
+            Return Me.pnlComponents
+        End Get
+    End Property
 #End Region
 End Class

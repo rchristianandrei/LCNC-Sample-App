@@ -5,29 +5,29 @@
     Private ReadOnly preview As New FormView
 
     Private ReadOnly formSettings As New FormSettingsPresenter(Me.preview)
+    Private ReadOnly formComponents As New FormComponentsPresenter(Me.preview)
 
     ' Services
     Private ReadOnly formsRepo As IFormsRepo = New FormsRepo
 
     Private formModel As New FormModel
 
+    Private selectedInspector As UserControl = Me.formSettings.View
+
     Public Sub New()
         Me.PrepareFeature()
         Me.PrepareEventHandlers()
     End Sub
 
-#Region "Properties"
-    Public ReadOnly Property View As UserControl Implements IFeature.View
-        Get
-            Return _view
-        End Get
-    End Property
-#End Region
-
-#Region "Private Methods"
     Private Sub PrepareFeature()
+        ' Prepare Settings View
         Me.formSettings.View.Dock = DockStyle.Fill
         Me._view.PanelRight.Controls.Add(Me.formSettings.View)
+
+        ' Prepare Components View
+        Me.formComponents.View.Visible = False
+        Me.formComponents.View.Dock = DockStyle.Fill
+        Me._view.PanelRight.Controls.Add(Me.formComponents.View)
 
         ' Prepare Preview
         Me.preview.ControlBox = False
@@ -40,11 +40,31 @@
     End Sub
 
     Private Sub PrepareEventHandlers()
+        AddHandler Me.formComponents.ShowCompInspector, AddressOf Me.ShowCompInspector
+
         AddHandler Me._view.Save, AddressOf Me.SaveForm
+
+        AddHandler Me._view.AddTextbox, AddressOf Me.formComponents.AddTextbox
+    End Sub
+
+#Region "Properties"
+    Public ReadOnly Property View As UserControl Implements IFeature.View
+        Get
+            Return _view
+        End Get
+    End Property
+#End Region
+
+#Region "Presenter Event Handlers"
+    Private Sub ShowCompInspector()
+        If Me.selectedInspector Is Me.formComponents.View Then Return
+
+        Me.selectedInspector.Visible = False
+        Me.formComponents.View.Visible = True
     End Sub
 #End Region
 
-#Region "Event Handlers"
+#Region "View Event Handlers"
     Private Async Sub SaveForm()
         Me.formModel.FormText = Me.formSettings.FormText
         Me.formModel.FormWidth = Me.formSettings.FormWidth

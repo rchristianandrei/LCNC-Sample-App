@@ -36,6 +36,9 @@ Partial Class EditorView
         smiPreview = New ToolStripMenuItem()
         smiSave = New ToolStripMenuItem()
         smiReset = New ToolStripMenuItem()
+        smiComponents = New ToolStripMenuItem()
+        smiAddNew = New ToolStripMenuItem()
+        TextboxToolStripMenuItem = New ToolStripMenuItem()
         mnsOptions.SuspendLayout()
         SuspendLayout()
         ' 
@@ -81,7 +84,7 @@ Partial Class EditorView
         ' 
         ' mnsOptions
         ' 
-        mnsOptions.Items.AddRange(New ToolStripItem() {smiForm})
+        mnsOptions.Items.AddRange(New ToolStripItem() {smiForm, smiComponents})
         mnsOptions.Location = New Point(0, 0)
         mnsOptions.Name = "mnsOptions"
         mnsOptions.Size = New Size(746, 24)
@@ -98,20 +101,20 @@ Partial Class EditorView
         ' smiLoad
         ' 
         smiLoad.Name = "smiLoad"
-        smiLoad.Size = New Size(180, 22)
+        smiLoad.Size = New Size(115, 22)
         smiLoad.Text = "Load"
         ' 
         ' smiPreview
         ' 
         smiPreview.Name = "smiPreview"
-        smiPreview.Size = New Size(180, 22)
+        smiPreview.Size = New Size(115, 22)
         smiPreview.Text = "Preview"
         ' 
         ' smiSave
         ' 
         smiSave.ForeColor = SystemColors.ControlText
         smiSave.Name = "smiSave"
-        smiSave.Size = New Size(180, 22)
+        smiSave.Size = New Size(115, 22)
         smiSave.Text = "Save"
         ' 
         ' smiReset
@@ -119,8 +122,28 @@ Partial Class EditorView
         smiReset.BackColor = SystemColors.Control
         smiReset.ForeColor = SystemColors.ControlText
         smiReset.Name = "smiReset"
-        smiReset.Size = New Size(180, 22)
+        smiReset.Size = New Size(115, 22)
         smiReset.Text = "Reset"
+        ' 
+        ' smiComponents
+        ' 
+        smiComponents.DropDownItems.AddRange(New ToolStripItem() {smiAddNew})
+        smiComponents.Name = "smiComponents"
+        smiComponents.Size = New Size(88, 20)
+        smiComponents.Text = "Components"
+        ' 
+        ' smiAddNew
+        ' 
+        smiAddNew.DropDownItems.AddRange(New ToolStripItem() {TextboxToolStripMenuItem})
+        smiAddNew.Name = "smiAddNew"
+        smiAddNew.Size = New Size(180, 22)
+        smiAddNew.Text = "Add New"
+        ' 
+        ' TextboxToolStripMenuItem
+        ' 
+        TextboxToolStripMenuItem.Name = "TextboxToolStripMenuItem"
+        TextboxToolStripMenuItem.Size = New Size(180, 22)
+        TextboxToolStripMenuItem.Text = "Textbox"
         ' 
         ' EditorView
         ' 
@@ -148,5 +171,8 @@ Partial Class EditorView
     Friend WithEvents smiReset As ToolStripMenuItem
     Friend WithEvents smiPreview As ToolStripMenuItem
     Friend WithEvents smiLoad As ToolStripMenuItem
+    Friend WithEvents smiComponents As ToolStripMenuItem
+    Friend WithEvents smiAddNew As ToolStripMenuItem
+    Friend WithEvents TextboxToolStripMenuItem As ToolStripMenuItem
 
 End Class
