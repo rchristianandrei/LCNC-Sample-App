@@ -6,6 +6,9 @@
 
     Private ReadOnly formSettings As New FormSettingsPresenter(Me.preview)
 
+    ' Services
+    Private ReadOnly formsRepo As IFormsRepo = New FormsRepo
+
     Private formModel As New FormModel
 
     Public Sub New()
@@ -42,8 +45,16 @@
 #End Region
 
 #Region "Event Handlers"
-    Private Sub SaveForm()
-        Throw New NotImplementedException()
+    Private Async Sub SaveForm()
+        Me.formModel.FormText = Me.formSettings.FormText
+        Me.formModel.FormWidth = Me.formSettings.FormWidth
+        Me.formModel.FormHeight = Me.formSettings.FormHeight
+
+        Try
+            Await Me.formsRepo.Save(Me.formModel)
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
     End Sub
 #End Region
 End Class

@@ -1,7 +1,11 @@
-﻿Public Class FormModel
-    Public Property FormText() As String
+﻿Imports MongoDB.Bson
 
-    Public Property FormWidth() As Integer
+Public Class FormModel
+    Public Property Id As ObjectId
 
-    Public Property FormHeight() As Integer
+    Public Property FormText As String
+
+    Public Property FormWidth As Integer
+
+    Public Property FormHeight As Integer
 End Class
