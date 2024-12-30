@@ -1,12 +1,7 @@
-﻿Public Class FormComponentFactory
-    Implements IFormComponentFactory
+﻿Public Class FormControlFactory
+    Implements IFormControlFactory
 
-    Public Enum FormComponentType
-        Textbox
-        Dropdownbox
-    End Enum
-
-    Public Function CreateComponent(type As FormComponentType) As FormControlComponent Implements IFormComponentFactory.CreateComponent
+    Public Function CreateComponent(type As FormComponentType) As FormControlComponent Implements IFormControlFactory.CreateComponent
         Dim control As FormControlComponent = Nothing
         Select Case type
             Case FormComponentType.Textbox

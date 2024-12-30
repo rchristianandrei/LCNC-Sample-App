@@ -44,7 +44,8 @@ Namespace My
             Dim connectionString = configuration.GetConnectionString("MongoDB")
 
             ' Register services
-            serviceCollection.AddSingleton(Of IFormComponentFactory, FormComponentFactory)
+            serviceCollection.AddSingleton(Of IFormComponentModelFactory, FormComponentModelFactory)
+            serviceCollection.AddSingleton(Of IFormControlFactory, FormControlFactory)
             serviceCollection.AddScoped(Of IFormsRepo, FormsRepo)(Function(provider) New FormsRepo(connectionString))
 
             ' Presenters

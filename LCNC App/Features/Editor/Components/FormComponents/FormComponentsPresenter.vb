@@ -1,4 +1,4 @@
-﻿Imports LCNC_App.FormComponentFactory
+﻿Imports LCNC_App.FormControlFactory
 
 Public Class FormComponentsPresenter
     Implements IInspector
@@ -7,9 +7,11 @@ Public Class FormComponentsPresenter
 
     Private ReadOnly preview As FormView
 
-    Private selectedControl As FormControlComponent
+    Private ReadOnly factoryComp As New FormControlFactory
+    Private ReadOnly factoryModel As New FormComponentModelFactory
 
-    Private ReadOnly factory As New FormComponentFactory
+    Private ReadOnly dictionary As New Dictionary(Of FormControlComponent, FormComponentModel)
+    Private selectedControl As FormControlComponent
 
     Public Sub New(preview As FormView)
         Me.preview = preview
@@ -24,6 +26,12 @@ Public Class FormComponentsPresenter
     End Sub
 #Region "Properties"
     Public ReadOnly Property View As New FormComponentsView
+
+    Public ReadOnly Property ComponentModels() As List(Of FormComponentModel)
+        Get
+            Return Me.dictionary.Values.ToList()
+        End Get
+    End Property
 #End Region
 
 #Region "Events"
@@ -32,10 +40,18 @@ Public Class FormComponentsPresenter
 
 #Region "Public Methods"
     Public Sub AddComponent(type As FormComponentType)
-        Dim control = Me.factory.CreateComponent(type)
+        Dim model = Me.factoryModel.CreateComponent(type)
+        Dim control = Me.factoryComp.CreateComponent(type)
         control.Active = False
+
+        model.Label = control.Label
+        model.Location = control.Location
+        model.Size = control.Size
+
         AddHandler control.Click, AddressOf ClickComponent
         Me.preview.ComponentsPanel.Controls.Add(control)
+
+        Me.dictionary.Add(control, model)
     End Sub
 
     Public Sub Show(visible As Boolean) Implements IInspector.Show
@@ -52,6 +68,7 @@ Public Class FormComponentsPresenter
 #Region "Event Handlers"
     Private Sub CompLabelChanged()
         Me.selectedControl.Label = Me.View.Label
+        Me.dictionary(Me.selectedControl).Label = Me.View.Label
     End Sub
 
     Private Sub CompLocationChanged()
@@ -77,6 +94,7 @@ Public Class FormComponentsPresenter
         End If
 
         Me.selectedControl.Location = New Point(x, y)
+        Me.dictionary(Me.selectedControl).Location = Me.selectedControl.Location
     End Sub
 
     Private Sub CompSizeChanged()
@@ -102,6 +120,7 @@ Public Class FormComponentsPresenter
         End If
 
         Me.selectedControl.Size = New Size(width, height)
+        Me.dictionary(Me.selectedControl).Size = Me.selectedControl.Size
     End Sub
 #End Region
 

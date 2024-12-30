@@ -11,7 +11,7 @@
     Private ReadOnly formsRepo As IFormsRepo
 
     ' Placeholders
-    Private formModel As New FormModel
+    Private ReadOnly formModel As New FormModel
     Private selectedInspector As IInspector = Me.formSettings
 
     Public Sub New(formsRepo As IFormsRepo)
@@ -47,8 +47,8 @@
 
         AddHandler Me._view.Save, AddressOf Me.SaveForm
 
-        AddHandler Me._view.AddTextbox, Sub() Me.formComponents.AddComponent(FormComponentFactory.FormComponentType.Textbox)
-        AddHandler Me._view.AddDropdownbox, Sub() Me.formComponents.AddComponent(FormComponentFactory.FormComponentType.Dropdownbox)
+        AddHandler Me._view.AddTextbox, Sub() Me.formComponents.AddComponent(FormComponentType.Textbox)
+        AddHandler Me._view.AddDropdownbox, Sub() Me.formComponents.AddComponent(FormComponentType.Dropdownbox)
     End Sub
 
 #Region "Properties"
@@ -85,6 +85,8 @@
         Me.formModel.FormWidth = Me.formSettings.FormWidth
         Me.formModel.FormHeight = Me.formSettings.FormHeight
         Me.formModel.SubmitText = Me.formSettings.SubmitText
+
+        Me.formModel.Components = Me.formComponents.ComponentModels
 
         Try
             Await Me.formsRepo.Save(Me.formModel)
