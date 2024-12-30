@@ -12,7 +12,7 @@
 
     Private formModel As New FormModel
 
-    Private selectedInspector As UserControl = Me.formSettings.View
+    Private selectedInspector As IInspector = Me.formSettings
 
     Public Sub New()
         Me.PrepareFeature()
@@ -40,6 +40,7 @@
     End Sub
 
     Private Sub PrepareEventHandlers()
+        AddHandler Me.formSettings.ShowFormInspector, AddressOf Me.ShowFormInspector
         AddHandler Me.formComponents.ShowCompInspector, AddressOf Me.ShowCompInspector
 
         AddHandler Me._view.Save, AddressOf Me.SaveForm
@@ -56,11 +57,22 @@
 #End Region
 
 #Region "Presenter Event Handlers"
-    Private Sub ShowCompInspector()
-        If Me.selectedInspector Is Me.formComponents.View Then Return
+    Private Sub ShowFormInspector()
+        If Me.selectedInspector Is Me.formSettings Then Return
 
-        Me.selectedInspector.Visible = False
-        Me.formComponents.View.Visible = True
+        Me.selectedInspector.Show(False)
+        Me.formSettings.Show(True)
+
+        Me.selectedInspector = Me.formSettings
+    End Sub
+
+    Private Sub ShowCompInspector()
+        If Me.selectedInspector Is Me.formComponents Then Return
+
+        Me.selectedInspector.Show(False)
+        Me.formComponents.Show(True)
+
+        Me.selectedInspector = Me.formComponents
     End Sub
 #End Region
 

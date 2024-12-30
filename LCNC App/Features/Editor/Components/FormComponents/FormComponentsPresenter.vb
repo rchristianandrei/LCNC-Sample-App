@@ -1,4 +1,5 @@
 ﻿Public Class FormComponentsPresenter
+    Implements IInspector
 
     Private ReadOnly OrigColor = Color.FromArgb(240, 240, 240)
 
@@ -9,7 +10,7 @@
     Public Sub New(preview As FormView)
         Me.preview = preview
 
-        Me.PrepareEventHandlers
+        Me.PrepareEventHandlers()
     End Sub
 
     Private Sub PrepareEventHandlers()
@@ -32,6 +33,18 @@
 
 #Region "Events"
     Public Event ShowCompInspector()
+#End Region
+
+#Region "Public Methods"
+    Public Sub Show(visible As Boolean) Implements IInspector.Show
+        Me.View.Visible = visible
+
+        If visible Then Return
+        If Me.selectedControl Is Nothing Then Return
+
+        Me.selectedControl.BackColor = Me.OrigColor
+        Me.selectedControl = Nothing
+    End Sub
 #End Region
 
 #Region "Event Handlers"

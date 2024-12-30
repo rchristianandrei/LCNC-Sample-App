@@ -1,4 +1,5 @@
 ﻿Public Class FormSettingsPresenter
+    Implements IInspector
 
     Private ReadOnly preview As FormView
 
@@ -7,6 +8,25 @@
 
         Me.ShowSettings()
         Me.PrepareEventHandlers()
+    End Sub
+
+    Private Sub ShowSettings()
+        Me.View.FormText = Me.preview.Text
+        Me.View.FormWidth = Me.preview.Width
+        Me.View.FormHeight = Me.preview.Height
+
+        Me.View.SubmitText = Me.preview.SubmitButton.Text
+    End Sub
+
+    Private Sub PrepareEventHandlers()
+        AddHandler Me.preview.FormInteract, Sub() RaiseEvent ShowFormInspector()
+        AddHandler Me.preview.SizeChanged, AddressOf Me.PreviewSizeChanged
+
+        AddHandler Me.View.FormTextChanged, AddressOf Me.FormTextChanged
+        AddHandler Me.View.FormWidthChanged, AddressOf Me.FormWidthChanged
+        AddHandler Me.View.FormHeightChanged, AddressOf Me.FormHeightChanged
+
+        AddHandler Me.View.SubmitTextChanged, AddressOf Me.SubmitTextChanged
     End Sub
 
 #Region "Properties"
@@ -52,23 +72,13 @@
     End Property
 #End Region
 
-#Region "Private Methods"
-    Private Sub ShowSettings()
-        Me.View.FormText = Me.preview.Text
-        Me.View.FormWidth = Me.preview.Width
-        Me.View.FormHeight = Me.preview.Height
+#Region "Events"
+    Public Event ShowFormInspector()
+#End Region
 
-        Me.View.SubmitText = Me.preview.SubmitButton.Text
-    End Sub
-
-    Private Sub PrepareEventHandlers()
-        AddHandler Me.preview.SizeChanged, AddressOf Me.PreviewSizeChanged
-
-        AddHandler Me.View.FormTextChanged, AddressOf Me.FormTextChanged
-        AddHandler Me.View.FormWidthChanged, AddressOf Me.FormWidthChanged
-        AddHandler Me.View.FormHeightChanged, AddressOf Me.FormHeightChanged
-
-        AddHandler Me.View.SubmitTextChanged, AddressOf Me.SubmitTextChanged
+#Region "Public Methods"
+    Public Sub Show(visible As Boolean) Implements IInspector.Show
+        Me.View.Visible = visible
     End Sub
 #End Region
 

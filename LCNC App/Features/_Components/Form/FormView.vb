@@ -17,4 +17,12 @@ Public Class FormView
         End Get
     End Property
 #End Region
+
+#Region "Events"
+    Public Event FormInteract()
+
+    Private Sub FormInteract_Click(sender As Object, e As EventArgs) Handles pnlComponents.Click, btnSubmit.Click
+        RaiseEvent FormInteract()
+    End Sub
+#End Region
 End Class
