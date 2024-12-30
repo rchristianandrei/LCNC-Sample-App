@@ -15,6 +15,7 @@
     Private Sub PrepareEventHandlers()
         AddHandler Me.View.CompLabelChanged, AddressOf Me.CompLabelChanged
         AddHandler Me.View.CompLocationChanged, AddressOf Me.CompLocationChanged
+        AddHandler Me.View.CompSizeChanged, AddressOf Me.CompSizeChanged
     End Sub
 #Region "Properties"
     Public ReadOnly Property View As New FormComponentsView
@@ -62,11 +63,38 @@
 
         Me.selectedControl.Location = New Point(x, y)
     End Sub
+
+    Private Sub CompSizeChanged()
+        Dim width As Integer
+        Dim height As Integer
+        Dim valid = True
+
+        ' Validate Width
+        If Not Integer.TryParse(Me.View.SizeWidth, width) Then
+            Me.View.SizeWidth = Me.selectedControl.Width
+            valid = False
+        End If
+
+        ' Validate Height
+        If Not Integer.TryParse(Me.View.SizeHeight, height) Then
+            Me.View.SizeHeight = Me.selectedControl.Height
+            valid = False
+        End If
+
+        If Not valid Then
+            MsgBox("Invalid Size")
+            Return
+        End If
+
+        Me.selectedControl.Size = New Size(width, height)
+    End Sub
 #End Region
 
 #Region "Private Methods"
     Private Sub ClickComponent(sender As Object, e As EventArgs)
         Dim control As FormTextbox = sender
+
+        If control Is Me.selectedControl Then Return
 
         control.BackColor = Color.Black
 
@@ -81,6 +109,9 @@
 
         Me.View.LocationX = control.Location.X
         Me.View.LocationY = control.Location.Y
+
+        Me.View.SizeWidth = control.Width
+        Me.View.SizeHeight = control.Height
 
         RaiseEvent ShowCompInspector()
     End Sub

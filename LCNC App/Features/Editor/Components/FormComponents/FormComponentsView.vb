@@ -36,11 +36,30 @@
             Me.txtZ.Text = value
         End Set
     End Property
+
+    Public Property SizeWidth() As String
+        Get
+            Return Me.txtWidth.Text
+        End Get
+        Set(ByVal value As String)
+            Me.txtWidth.Text = value
+        End Set
+    End Property
+
+    Public Property SizeHeight() As String
+        Get
+            Return Me.txtHeight.Text
+        End Get
+        Set(ByVal value As String)
+            Me.txtHeight.Text = value
+        End Set
+    End Property
 #End Region
 
 #Region "Events"
     Public Event CompLabelChanged()
     Public Event CompLocationChanged()
+    Public Event CompSizeChanged()
 #End Region
 
 #Region "Event Handlers"
@@ -66,6 +85,18 @@
         If Me.FindForm() Is Nothing Then Return
 
         RaiseEvent CompLocationChanged()
+    End Sub
+
+    Private Sub CompSize_KeyDown(sender As Object, e As KeyEventArgs) Handles txtWidth.KeyDown, txtHeight.KeyDown
+        If e.KeyValue = Keys.Enter Then
+            RaiseEvent CompSizeChanged()
+        End If
+    End Sub
+
+    Private Sub CompSize_Leave(sender As Object, e As EventArgs) Handles txtWidth.Leave, txtHeight.Leave
+        If Me.FindForm() Is Nothing Then Return
+
+        RaiseEvent CompSizeChanged()
     End Sub
 #End Region
 End Class
