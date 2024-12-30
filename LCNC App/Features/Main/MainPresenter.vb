@@ -1,9 +1,16 @@
-﻿Public Class MainPresenter
+﻿Imports Microsoft.Extensions.DependencyInjection
+
+Public Class MainPresenter
+
+    Private ReadOnly serviceProvider As IServiceProvider
+
     Private ReadOnly _view As New MainView
 
     Private currentFeature As IFeature
 
-    Public Sub New()
+    Public Sub New(serviceProvider As IServiceProvider)
+        Me.serviceProvider = serviceProvider
+
         AddEventHandlers()
     End Sub
 
@@ -30,7 +37,7 @@
     End Sub
 
     Private Sub OpenForm()
-        Dim feature As New FormControlView
+        'Dim feature As New FormControlView
         'Dim feature As New EditorPresenter
         'feature.View.Dock = DockStyle.Fill
         'Me._view.PanelFeature.Controls.Add(feature.View)
@@ -45,7 +52,7 @@
     End Sub
 
     Private Sub OpenEditor()
-        Dim feature As New EditorPresenter
+        Dim feature = Me.serviceProvider.GetService(Of EditorPresenter)()
         feature.View.Dock = DockStyle.Fill
         Me._view.PanelFeature.Controls.Add(feature.View)
 

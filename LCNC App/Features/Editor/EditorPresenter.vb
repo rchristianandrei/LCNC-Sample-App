@@ -7,14 +7,16 @@
     Private ReadOnly formSettings As New FormSettingsPresenter(Me.preview)
     Private ReadOnly formComponents As New FormComponentsPresenter(Me.preview)
 
-    ' Services
-    Private ReadOnly formsRepo As IFormsRepo = New FormsRepo
+    ' Required Services
+    Private ReadOnly formsRepo As IFormsRepo
 
+    ' Placeholders
     Private formModel As New FormModel
-
     Private selectedInspector As IInspector = Me.formSettings
 
-    Public Sub New()
+    Public Sub New(formsRepo As IFormsRepo)
+        Me.formsRepo = formsRepo
+
         Me.PrepareFeature()
         Me.PrepareEventHandlers()
     End Sub

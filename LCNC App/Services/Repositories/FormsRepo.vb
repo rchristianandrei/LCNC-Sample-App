@@ -4,9 +4,13 @@ Imports MongoDB.Driver
 Public Class FormsRepo
     Implements IFormsRepo
 
-    Private ReadOnly connString = "mongodb://localhost:27017"
+    Private ReadOnly connString As String
     Private ReadOnly dbName = "lcncApp"
     Private ReadOnly colName = "forms"
+
+    Public Sub New(connString As String)
+        Me.connString = connString
+    End Sub
 
     Public Async Function Save(form As FormModel) As Task Implements IFormsRepo.Save
         Dim client As New MongoClient(New MongoUrl(connString))

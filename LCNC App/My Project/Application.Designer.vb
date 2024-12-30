@@ -10,33 +10,54 @@
 
 Option Strict On
 Option Explicit On
-
+Imports Microsoft.Extensions.Configuration
+Imports Microsoft.Extensions.DependencyInjection
 
 Namespace My
-    
+
     'NOTE: This file is auto-generated; do not modify it directly.  To make changes,
     ' or if you encounter build errors in this file, go to the Project Designer
     ' (go to Project Properties or double-click the My Project node in
     ' Solution Explorer), and make changes on the Application tab.
     '
     Partial Friend Class MyApplication
-        
-        <Global.System.Diagnostics.DebuggerStepThroughAttribute()>  _
+
+        <Global.System.Diagnostics.DebuggerStepThroughAttribute()>
         Public Sub New()
             MyBase.New(Global.Microsoft.VisualBasic.ApplicationServices.AuthenticationMode.Windows)
-            Me.IsSingleInstance = true
-            Me.EnableVisualStyles = true
-            Me.SaveMySettingsOnExit = true
-            Me.ShutDownStyle = Global.Microsoft.VisualBasic.ApplicationServices.ShutdownMode.AfterAllFormsClose
+            Me.IsSingleInstance = True
+            Me.EnableVisualStyles = True
+            Me.SaveMySettingsOnExit = True
+            Me.ShutdownStyle = Global.Microsoft.VisualBasic.ApplicationServices.ShutdownMode.AfterAllFormsClose
             Me.HighDpiMode = HighDpiMode.DpiUnaware
         End Sub
-        
-        <Global.System.Diagnostics.DebuggerStepThroughAttribute()>  _
+
+        <Global.System.Diagnostics.DebuggerStepThroughAttribute()>
         Protected Overrides Sub OnCreateMainForm()
-            Me.MainForm = New Global.LCNC_App.MainPresenter().View
+            ' Load configuration
+            Dim configuration = New ConfigurationBuilder().AddJsonFile("appsettings.json").Build()
+
+            ' Create a service collection
+            Dim serviceCollection As New ServiceCollection()
+
+            ' Get the connection string
+            Dim connectionString = configuration.GetConnectionString("MongoDB")
+
+            ' Register services
+            serviceCollection.AddSingleton(Of IFormComponentFactory, FormComponentFactory)
+            serviceCollection.AddScoped(Of IFormsRepo, FormsRepo)(Function(provider) New FormsRepo(connectionString))
+
+            ' Presenters
+            serviceCollection.AddTransient(Of MainPresenter)
+            serviceCollection.AddTransient(Of EditorPresenter)
+
+            ' Build the service provider
+            Dim serviceProvider = serviceCollection.BuildServiceProvider()
+
+            Me.MainForm = serviceProvider.GetService(Of MainPresenter).View
         End Sub
-        
-        <Global.System.Diagnostics.DebuggerStepThroughAttribute()>  _
+
+        <Global.System.Diagnostics.DebuggerStepThroughAttribute()>
         Protected Overrides Function OnInitialize(ByVal commandLineArgs As System.Collections.ObjectModel.ReadOnlyCollection(Of String)) As Boolean
             Me.MinimumSplashScreenDisplayTime = 0
             Return MyBase.OnInitialize(commandLineArgs)
