@@ -19,6 +19,8 @@ Public Class EditorView
     Public Event Save()
 
     Public Event AddTextbox()
+
+    Public Event AddDropdownbox()
 #End Region
 
 #Region "EventHandlers"
@@ -26,8 +28,12 @@ Public Class EditorView
         RaiseEvent Save()
     End Sub
 
-    Private Sub TextboxToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TextboxToolStripMenuItem.Click
+    Private Sub smiTextbox_Click(sender As Object, e As EventArgs) Handles smiTextbox.Click
         RaiseEvent AddTextbox()
+    End Sub
+
+    Private Sub smiDropdownbox_Click(sender As Object, e As EventArgs) Handles smiDropdownbox.Click
+        RaiseEvent AddDropdownbox()
     End Sub
 #End Region
 End Class

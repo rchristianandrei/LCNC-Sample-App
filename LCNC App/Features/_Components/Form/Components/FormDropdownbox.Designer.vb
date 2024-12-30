@@ -1,6 +1,6 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
 Partial Class FormDropdownbox
-    Inherits System.Windows.Forms.UserControl
+    Inherits FormControlComponent
 
     'UserControl overrides dispose to clean up the component list.
     <System.Diagnostics.DebuggerNonUserCode()> _
@@ -31,17 +31,18 @@ Partial Class FormDropdownbox
         ' lblLabel
         ' 
         lblLabel.AutoSize = False
-        lblLabel.BackColor = Color.Transparent
+        lblLabel.BackColor = SystemColors.Control
         lblLabel.Dock = DockStyle.Top
-        lblLabel.Location = New Point(0, 0)
+        lblLabel.Enabled = False
+        lblLabel.Location = New Point(1, 1)
         lblLabel.Name = "lblLabel"
-        lblLabel.Size = New Size(200, 17)
+        lblLabel.Size = New Size(198, 17)
         lblLabel.TabIndex = 1
         lblLabel.Text = "Dropdownbox Label"
         ' 
         ' cboCombobox
         ' 
-        cboCombobox.BackColor = Color.Transparent
+        cboCombobox.BackColor = SystemColors.Control
         cboCombobox.BorderRadius = 6
         cboCombobox.CustomizableEdges = CustomizableEdges1
         cboCombobox.Dock = DockStyle.Fill
@@ -51,11 +52,11 @@ Partial Class FormDropdownbox
         cboCombobox.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
         cboCombobox.Font = New Font("Segoe UI", 10F)
         cboCombobox.ForeColor = Color.FromArgb(CByte(68), CByte(88), CByte(112))
-        cboCombobox.ItemHeight = 25
-        cboCombobox.Location = New Point(0, 17)
+        cboCombobox.ItemHeight = 23
+        cboCombobox.Location = New Point(1, 18)
         cboCombobox.Name = "cboCombobox"
         cboCombobox.ShadowDecoration.CustomizableEdges = CustomizableEdges2
-        cboCombobox.Size = New Size(200, 31)
+        cboCombobox.Size = New Size(198, 29)
         cboCombobox.TabIndex = 2
         ' 
         ' FormDropdownbox
@@ -65,11 +66,11 @@ Partial Class FormDropdownbox
         Controls.Add(cboCombobox)
         Controls.Add(lblLabel)
         Name = "FormDropdownbox"
+        Padding = New Padding(1)
         Size = New Size(200, 48)
         ResumeLayout(False)
     End Sub
 
     Friend WithEvents lblLabel As Guna.UI2.WinForms.Guna2HtmlLabel
     Friend WithEvents cboCombobox As Guna.UI2.WinForms.Guna2ComboBox
-
 End Class

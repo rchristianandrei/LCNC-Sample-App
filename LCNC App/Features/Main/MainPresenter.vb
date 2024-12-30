@@ -34,12 +34,12 @@
         'Dim feature As New EditorPresenter
         'feature.View.Dock = DockStyle.Fill
         'Me._view.PanelFeature.Controls.Add(feature.View)
-        Me._view.PanelFeature.Controls.Add(feature)
+        'Me._view.PanelFeature.Controls.Add(feature)
 
-        If Me.currentFeature IsNot Nothing Then
-            Me._view.PanelFeature.Controls.Remove(Me.currentFeature.View)
-            Me.currentFeature.View.Dispose()
-        End If
+        'If Me.currentFeature IsNot Nothing Then
+        '    Me._view.PanelFeature.Controls.Remove(Me.currentFeature.View)
+        '    Me.currentFeature.View.Dispose()
+        'End If
 
         'Me.currentFeature = feature
     End Sub

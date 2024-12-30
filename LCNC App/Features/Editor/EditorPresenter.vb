@@ -45,7 +45,8 @@
 
         AddHandler Me._view.Save, AddressOf Me.SaveForm
 
-        AddHandler Me._view.AddTextbox, AddressOf Me.formComponents.AddTextbox
+        AddHandler Me._view.AddTextbox, Sub() Me.formComponents.AddComponent(FormComponentFactory.FormComponentType.Textbox)
+        AddHandler Me._view.AddDropdownbox, Sub() Me.formComponents.AddComponent(FormComponentFactory.FormComponentType.Dropdownbox)
     End Sub
 
 #Region "Properties"

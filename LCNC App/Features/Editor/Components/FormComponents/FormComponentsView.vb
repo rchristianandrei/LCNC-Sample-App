@@ -54,6 +54,15 @@
             Me.txtHeight.Text = value
         End Set
     End Property
+
+    Public Property HeightEnabled() As Boolean
+        Get
+            Return Me.txtHeight.Enabled
+        End Get
+        Set(ByVal value As Boolean)
+            Me.txtHeight.Enabled = value
+        End Set
+    End Property
 #End Region
 
 #Region "Events"

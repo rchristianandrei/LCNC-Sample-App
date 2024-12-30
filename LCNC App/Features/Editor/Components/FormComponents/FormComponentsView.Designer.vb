@@ -423,27 +423,27 @@ Partial Class FormComponentsView
         ResumeLayout(False)
         PerformLayout()
     End Sub
-    Friend WithEvents grpLocation As GroupBox
-    Friend WithEvents txtZ As Guna.UI2.WinForms.Guna2TextBox
-    Friend WithEvents lblZ As Guna.UI2.WinForms.Guna2HtmlLabel
-    Friend WithEvents grpSize As GroupBox
-    Friend WithEvents txtHeight As Guna.UI2.WinForms.Guna2TextBox
-    Friend WithEvents lblHeight As Guna.UI2.WinForms.Guna2HtmlLabel
-    Friend WithEvents txtWidth As Guna.UI2.WinForms.Guna2TextBox
-    Friend WithEvents lblWidth As Guna.UI2.WinForms.Guna2HtmlLabel
     Friend WithEvents grpLabel As GroupBox
-    Friend WithEvents pnlY As Guna.UI2.WinForms.Guna2Panel
     Friend WithEvents Guna2TextBox1 As Guna.UI2.WinForms.Guna2TextBox
-    Friend WithEvents pnlLabel As Panel
-    Friend WithEvents txtLabel As Guna.UI2.WinForms.Guna2TextBox
-    Friend WithEvents lblLabel As Guna.UI2.WinForms.Guna2HtmlLabel
-    Friend WithEvents pnlX As Guna.UI2.WinForms.Guna2Panel
-    Friend WithEvents txtX As Guna.UI2.WinForms.Guna2TextBox
-    Friend WithEvents lblX As Guna.UI2.WinForms.Guna2HtmlLabel
-    Friend WithEvents txtY As Guna.UI2.WinForms.Guna2TextBox
-    Friend WithEvents lblY As Guna.UI2.WinForms.Guna2HtmlLabel
-    Friend WithEvents pnlZ As Guna.UI2.WinForms.Guna2Panel
-    Friend WithEvents pnlWidth As Guna.UI2.WinForms.Guna2Panel
-    Friend WithEvents pnlHeight As Guna.UI2.WinForms.Guna2Panel
+    Private WithEvents grpLocation As GroupBox
+    Private WithEvents txtZ As Guna.UI2.WinForms.Guna2TextBox
+    Private WithEvents lblZ As Guna.UI2.WinForms.Guna2HtmlLabel
+    Private WithEvents grpSize As GroupBox
+    Private WithEvents txtHeight As Guna.UI2.WinForms.Guna2TextBox
+    Private WithEvents lblHeight As Guna.UI2.WinForms.Guna2HtmlLabel
+    Private WithEvents txtWidth As Guna.UI2.WinForms.Guna2TextBox
+    Private WithEvents lblWidth As Guna.UI2.WinForms.Guna2HtmlLabel
+    Private WithEvents pnlY As Guna.UI2.WinForms.Guna2Panel
+    Private WithEvents pnlLabel As Panel
+    Private WithEvents txtLabel As Guna.UI2.WinForms.Guna2TextBox
+    Private WithEvents lblLabel As Guna.UI2.WinForms.Guna2HtmlLabel
+    Private WithEvents pnlX As Guna.UI2.WinForms.Guna2Panel
+    Private WithEvents txtX As Guna.UI2.WinForms.Guna2TextBox
+    Private WithEvents lblX As Guna.UI2.WinForms.Guna2HtmlLabel
+    Private WithEvents txtY As Guna.UI2.WinForms.Guna2TextBox
+    Private WithEvents lblY As Guna.UI2.WinForms.Guna2HtmlLabel
+    Private WithEvents pnlZ As Guna.UI2.WinForms.Guna2Panel
+    Private WithEvents pnlWidth As Guna.UI2.WinForms.Guna2Panel
+    Private WithEvents pnlHeight As Guna.UI2.WinForms.Guna2Panel
 
 End Class

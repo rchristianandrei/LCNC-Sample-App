@@ -1,10 +1,29 @@
 ﻿Imports Guna.UI2.WinForms
 
 Public Class FormTextbox
+
 #Region "Properties"
-    Public ReadOnly Property Label() As Guna2HtmlLabel
+    Public Overrides Property Label As String
         Get
-            Return Me.lblLabel
+            Return Me.lblLabel.Text
+        End Get
+        Set(value As String)
+            Me.lblLabel.Text = value
+        End Set
+    End Property
+
+    Public Overrides Property Active As Boolean
+        Get
+            Return Me.txtTextbox.Enabled
+        End Get
+        Set(value As Boolean)
+            Me.txtTextbox.Enabled = value
+        End Set
+    End Property
+
+    Public Overrides ReadOnly Property CanSetHeight() As Boolean
+        Get
+            Return True
         End Get
     End Property
 

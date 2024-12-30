@@ -1,11 +1,15 @@
-﻿Public Class FormComponentsPresenter
+﻿Imports LCNC_App.FormComponentFactory
+
+Public Class FormComponentsPresenter
     Implements IInspector
 
     Private ReadOnly OrigColor = Color.FromArgb(240, 240, 240)
 
     Private ReadOnly preview As FormView
 
-    Private selectedControl As FormTextbox
+    Private selectedControl As FormControlComponent
+
+    Private ReadOnly factory As New FormComponentFactory
 
     Public Sub New(preview As FormView)
         Me.preview = preview
@@ -22,20 +26,18 @@
     Public ReadOnly Property View As New FormComponentsView
 #End Region
 
-#Region "Public Methods"
-    Public Sub AddTextbox()
-        Dim control As New FormTextbox
-        control.Textbox.Enabled = False
-        AddHandler control.Click, AddressOf ClickComponent
-        Me.preview.ComponentsPanel.Controls.Add(control)
-    End Sub
-#End Region
-
 #Region "Events"
     Public Event ShowCompInspector()
 #End Region
 
 #Region "Public Methods"
+    Public Sub AddComponent(type As FormComponentType)
+        Dim control = Me.factory.CreateComponent(type)
+        control.Active = False
+        AddHandler control.Click, AddressOf ClickComponent
+        Me.preview.ComponentsPanel.Controls.Add(control)
+    End Sub
+
     Public Sub Show(visible As Boolean) Implements IInspector.Show
         Me.View.Visible = visible
 
@@ -49,7 +51,7 @@
 
 #Region "Event Handlers"
     Private Sub CompLabelChanged()
-        Me.selectedControl.Label.Text = Me.View.Label
+        Me.selectedControl.Label = Me.View.Label
     End Sub
 
     Private Sub CompLocationChanged()
@@ -105,7 +107,7 @@
 
 #Region "Private Methods"
     Private Sub ClickComponent(sender As Object, e As EventArgs)
-        Dim control As FormTextbox = sender
+        Dim control As FormControlComponent = sender
 
         If control Is Me.selectedControl Then Return
 
@@ -118,13 +120,15 @@
         Me.selectedControl = control
 
         ' Show Values
-        Me.View.Label = control.Label.Text
+        Me.View.Label = control.Label
 
         Me.View.LocationX = control.Location.X
         Me.View.LocationY = control.Location.Y
 
         Me.View.SizeWidth = control.Width
         Me.View.SizeHeight = control.Height
+
+        Me.View.HeightEnabled = control.CanSetHeight
 
         RaiseEvent ShowCompInspector()
     End Sub
