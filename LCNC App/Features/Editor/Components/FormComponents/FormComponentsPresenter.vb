@@ -10,7 +10,7 @@ Public Class FormComponentsPresenter
     Private ReadOnly factoryComp As New FormControlFactory
     Private ReadOnly factoryModel As New FormComponentModelFactory
 
-    Private ReadOnly dictionary As New Dictionary(Of FormControlComponent, FormComponentModel)
+    Private dictionary As New Dictionary(Of FormControlComponent, FormComponentModel)
     Private selectedControl As FormControlComponent
 
     Public Sub New(preview As FormView)
@@ -22,6 +22,7 @@ Public Class FormComponentsPresenter
     Private Sub PrepareEventHandlers()
         AddHandler Me.View.CompLabelChanged, AddressOf Me.CompLabelChanged
         AddHandler Me.View.CompLocationChanged, AddressOf Me.CompLocationChanged
+        AddHandler Me.View.CompBringToFront, AddressOf Me.CompBringToFront
         AddHandler Me.View.CompSizeChanged, AddressOf Me.CompSizeChanged
     End Sub
 #Region "Properties"
@@ -98,6 +99,17 @@ Public Class FormComponentsPresenter
         Me.dictionary(Me.selectedControl).Location = Me.selectedControl.Location
 
         Me.ShowControlLocation(Me.selectedControl.Location)
+    End Sub
+
+    Private Sub CompBringToFront()
+        Me.preview.ComponentsPanel.Controls.SetChildIndex(Me.selectedControl, 0)
+
+        ' Rearrange
+        Dim temp As New Dictionary(Of FormControlComponent, FormComponentModel)
+        For Each ctrl As FormControlComponent In Me.preview.ComponentsPanel.Controls
+            temp.Add(ctrl, Me.dictionary(ctrl))
+        Next
+        Me.dictionary = temp
     End Sub
 
     Private Sub CompSizeChanged()

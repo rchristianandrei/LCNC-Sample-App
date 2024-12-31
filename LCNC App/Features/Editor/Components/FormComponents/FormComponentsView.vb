@@ -28,15 +28,6 @@
         End Set
     End Property
 
-    Public Property LocationZ() As String
-        Get
-            Return Me.txtZ.Text
-        End Get
-        Set(ByVal value As String)
-            Me.txtZ.Text = value
-        End Set
-    End Property
-
     Public Property SizeWidth() As String
         Get
             Return Me.txtWidth.Text
@@ -68,6 +59,7 @@
 #Region "Events"
     Public Event CompLabelChanged()
     Public Event CompLocationChanged()
+    Public Event CompBringToFront()
     Public Event CompSizeChanged()
 #End Region
 
@@ -91,9 +83,13 @@
     End Sub
 
     Private Sub CompLocation_Leave(sender As Object, e As EventArgs) Handles txtX.Leave, txtY.Leave
-        If Me.FindForm() Is Nothing Then Return
+        If FindForm() Is Nothing Then Return
 
         RaiseEvent CompLocationChanged()
+    End Sub
+
+    Private Sub btnBringToFront_Click(sender As Object, e As EventArgs) Handles btnBringToFront.Click
+        RaiseEvent CompBringToFront()
     End Sub
 
     Private Sub CompSize_KeyDown(sender As Object, e As KeyEventArgs) Handles txtWidth.KeyDown, txtHeight.KeyDown

@@ -53,8 +53,7 @@ Partial Class FormComponentsView
         lblWidth = New Guna.UI2.WinForms.Guna2HtmlLabel()
         grpLocation = New GroupBox()
         pnlZ = New Guna.UI2.WinForms.Guna2Panel()
-        txtZ = New Guna.UI2.WinForms.Guna2TextBox()
-        lblZ = New Guna.UI2.WinForms.Guna2HtmlLabel()
+        btnBringToFront = New Guna.UI2.WinForms.Guna2Button()
         pnlY = New Guna.UI2.WinForms.Guna2Panel()
         txtY = New Guna.UI2.WinForms.Guna2TextBox()
         lblY = New Guna.UI2.WinForms.Guna2HtmlLabel()
@@ -204,8 +203,7 @@ Partial Class FormComponentsView
         ' 
         pnlZ.AutoSize = True
         pnlZ.AutoSizeMode = AutoSizeMode.GrowAndShrink
-        pnlZ.Controls.Add(txtZ)
-        pnlZ.Controls.Add(lblZ)
+        pnlZ.Controls.Add(btnBringToFront)
         pnlZ.CustomizableEdges = CustomizableEdges11
         pnlZ.Dock = DockStyle.Top
         pnlZ.Location = New Point(3, 87)
@@ -215,39 +213,26 @@ Partial Class FormComponentsView
         pnlZ.Size = New Size(156, 34)
         pnlZ.TabIndex = 5
         ' 
-        ' txtZ
+        ' btnBringToFront
         ' 
-        txtZ.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
-        txtZ.BorderRadius = 6
-        txtZ.CustomizableEdges = CustomizableEdges9
-        txtZ.DefaultText = ""
-        txtZ.DisabledState.BorderColor = Color.FromArgb(CByte(208), CByte(208), CByte(208))
-        txtZ.DisabledState.FillColor = Color.FromArgb(CByte(226), CByte(226), CByte(226))
-        txtZ.DisabledState.ForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
-        txtZ.DisabledState.PlaceholderForeColor = Color.FromArgb(CByte(138), CByte(138), CByte(138))
-        txtZ.FocusedState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        txtZ.Font = New Font("Segoe UI", 9F)
-        txtZ.ForeColor = SystemColors.ControlText
-        txtZ.HoverState.BorderColor = Color.FromArgb(CByte(94), CByte(148), CByte(255))
-        txtZ.Location = New Point(49, 3)
-        txtZ.Margin = New Padding(0)
-        txtZ.Name = "txtZ"
-        txtZ.PasswordChar = ChrW(0)
-        txtZ.PlaceholderText = ""
-        txtZ.SelectedText = ""
-        txtZ.ShadowDecoration.CustomizableEdges = CustomizableEdges10
-        txtZ.Size = New Size(104, 28)
-        txtZ.TabIndex = 7
-        ' 
-        ' lblZ
-        ' 
-        lblZ.Anchor = AnchorStyles.Left
-        lblZ.BackColor = Color.Transparent
-        lblZ.Location = New Point(6, 9)
-        lblZ.Name = "lblZ"
-        lblZ.Size = New Size(10, 17)
-        lblZ.TabIndex = 6
-        lblZ.Text = "Z"
+        btnBringToFront.BorderColor = Color.FromArgb(CByte(213), CByte(218), CByte(223))
+        btnBringToFront.BorderRadius = 6
+        btnBringToFront.BorderThickness = 1
+        btnBringToFront.CustomizableEdges = CustomizableEdges9
+        btnBringToFront.DisabledState.BorderColor = Color.DarkGray
+        btnBringToFront.DisabledState.CustomBorderColor = Color.DarkGray
+        btnBringToFront.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
+        btnBringToFront.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
+        btnBringToFront.FillColor = Color.White
+        btnBringToFront.Font = New Font("Segoe UI", 9F)
+        btnBringToFront.ForeColor = SystemColors.ControlText
+        btnBringToFront.Location = New Point(26, 3)
+        btnBringToFront.Margin = New Padding(0)
+        btnBringToFront.Name = "btnBringToFront"
+        btnBringToFront.ShadowDecoration.CustomizableEdges = CustomizableEdges10
+        btnBringToFront.Size = New Size(104, 28)
+        btnBringToFront.TabIndex = 7
+        btnBringToFront.Text = "Bring To Front"
         ' 
         ' pnlY
         ' 
@@ -413,7 +398,6 @@ Partial Class FormComponentsView
         grpLocation.ResumeLayout(False)
         grpLocation.PerformLayout()
         pnlZ.ResumeLayout(False)
-        pnlZ.PerformLayout()
         pnlY.ResumeLayout(False)
         pnlY.PerformLayout()
         pnlX.ResumeLayout(False)
@@ -426,8 +410,6 @@ Partial Class FormComponentsView
     Friend WithEvents grpLabel As GroupBox
     Friend WithEvents Guna2TextBox1 As Guna.UI2.WinForms.Guna2TextBox
     Private WithEvents grpLocation As GroupBox
-    Private WithEvents txtZ As Guna.UI2.WinForms.Guna2TextBox
-    Private WithEvents lblZ As Guna.UI2.WinForms.Guna2HtmlLabel
     Private WithEvents grpSize As GroupBox
     Private WithEvents txtHeight As Guna.UI2.WinForms.Guna2TextBox
     Private WithEvents lblHeight As Guna.UI2.WinForms.Guna2HtmlLabel
@@ -445,5 +427,6 @@ Partial Class FormComponentsView
     Private WithEvents pnlZ As Guna.UI2.WinForms.Guna2Panel
     Private WithEvents pnlWidth As Guna.UI2.WinForms.Guna2Panel
     Private WithEvents pnlHeight As Guna.UI2.WinForms.Guna2Panel
+    Friend WithEvents btnBringToFront As Guna.UI2.WinForms.Guna2Button
 
 End Class
