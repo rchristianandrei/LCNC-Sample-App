@@ -34,6 +34,9 @@ Namespace My
 
         <Global.System.Diagnostics.DebuggerStepThroughAttribute()>
         Protected Overrides Sub OnCreateMainForm()
+            ' Mapping
+            MainMapping.SetMapping()
+
             ' Get the service provider
             Dim serviceProvider = MainServices.GetServiceProvider()
 

@@ -1,4 +1,7 @@
-﻿Public MustInherit Class FormComponentModel
+﻿Imports MongoDB.Bson.Serialization.Attributes
+
+<BsonDiscriminator(RootClass:=True)>
+Public MustInherit Class FormComponentModel
 
     Property Label As String
 

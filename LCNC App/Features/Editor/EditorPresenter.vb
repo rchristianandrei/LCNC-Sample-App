@@ -16,7 +16,7 @@ Public Class EditorPresenter
     ' Placeholders
     Private previewOpened = False
 
-    Private ReadOnly formModel As New FormModel With {
+    Private formModel As New FormModel With {
         .FormText = Me.preview.Text,
         .FormWidth = Me.preview.Width,
         .FormHeight = Me.preview.Height,
@@ -35,7 +35,7 @@ Public Class EditorPresenter
     Private Sub PrepareFeature()
         ' Prepare Settings View
         Me.formSettings.View.Dock = DockStyle.Fill
-        Me.formSettings.Model = Me.formModel
+        Me.formSettings.SetModel(Me.formModel)
         Me._view.PanelRight.Controls.Add(Me.formSettings.View)
 
         ' Prepare Components View
@@ -58,6 +58,7 @@ Public Class EditorPresenter
         AddHandler Me.formSettings.ShowFormInspector, AddressOf Me.ShowFormInspector
         AddHandler Me.formComponents.ShowCompInspector, AddressOf Me.ShowCompInspector
 
+        AddHandler Me._view.LoadForm, AddressOf Me.LoadForm
         AddHandler Me._view.Preview, AddressOf Me.OpenPreview
         AddHandler Me._view.Save, AddressOf Me.SaveForm
 
@@ -94,6 +95,17 @@ Public Class EditorPresenter
 #End Region
 
 #Region "View Event Handlers"
+    Private Async Sub LoadForm()
+        Try
+            Me.formModel = Await Me.formsRepo.LoadOne(New MongoDB.Bson.ObjectId("67743c04eb3cee40b686c109"))
+
+            Me.formSettings.SetModel(Me.formModel)
+            Me.formComponents.SetComponents(Me.formModel.Components)
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+    End Sub
+
     Private Sub OpenPreview()
         If Me.previewOpened Then Return
 

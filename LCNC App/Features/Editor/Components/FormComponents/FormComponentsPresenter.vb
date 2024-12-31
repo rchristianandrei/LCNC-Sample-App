@@ -82,6 +82,17 @@ Public Class FormComponentsPresenter
         Me.SubscribeDragFeature(Me.selectedControl, False)
         Me.selectedControl = Nothing
     End Sub
+
+    Public Sub SetComponents(list As IEnumerable(Of FormComponentModel))
+        Me.ctrlToModel.Clear()
+        Me.preview.ComponentsPanel.Controls.Clear()
+
+        For Each model In list
+            Dim control = Me.factoryComp.CreateFromModel(model)
+            Me.ctrlToModel.Add(control, model)
+            Me.preview.ComponentsPanel.Controls.Add(control)
+        Next
+    End Sub
 #End Region
 
 #Region "Event Handlers"

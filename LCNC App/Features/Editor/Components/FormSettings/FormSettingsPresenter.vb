@@ -3,19 +3,12 @@
 
     Private ReadOnly preview As FormView
 
+    Private model As FormModel
+
     Public Sub New(preview As FormView)
         Me.preview = preview
 
-        Me.ShowSettings()
         Me.PrepareEventHandlers()
-    End Sub
-
-    Private Sub ShowSettings()
-        Me.View.FormText = Me.preview.Text
-        Me.View.FormWidth = Me.preview.Width
-        Me.View.FormHeight = Me.preview.Height
-
-        Me.View.SubmitText = Me.preview.SubmitButton.Text
     End Sub
 
     Private Sub PrepareEventHandlers()
@@ -31,8 +24,6 @@
 
 #Region "Properties"
     Public ReadOnly Property View As New FormSettingsView
-
-    Public Property Model As FormModel
 #End Region
 
 #Region "Events"
@@ -42,6 +33,12 @@
 #Region "Public Methods"
     Public Sub Show(visible As Boolean) Implements IInspector.Show
         Me.View.Visible = visible
+    End Sub
+
+    Public Sub SetModel(formModel As FormModel)
+        Me.Model = formModel
+
+        Me.ShowSettings()
     End Sub
 #End Region
 
@@ -90,6 +87,20 @@
         Me.Model.SubmitText = Me.View.SubmitText
 
         Me.preview.SubmitButton.Text = Me.View.SubmitText
+    End Sub
+#End Region
+
+#Region "Utilities"
+    Private Sub ShowSettings()
+        Me.preview.Text = Me.model.FormText
+        Me.preview.Width = Me.model.FormWidth
+        Me.preview.Height = Me.model.FormHeight
+        Me.preview.SubmitButton.Text = Me.model.SubmitText
+
+        Me.View.FormText = Me.model.FormText
+        Me.View.FormWidth = Me.model.FormWidth
+        Me.View.FormHeight = Me.model.FormHeight
+        Me.View.SubmitText = Me.model.SubmitText
     End Sub
 #End Region
 End Class

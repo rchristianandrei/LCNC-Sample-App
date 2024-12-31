@@ -16,6 +16,8 @@ Public Class EditorView
 #End Region
 
 #Region "Events"
+    Public Event LoadForm()
+
     Public Event Preview()
 
     Public Event Save()
@@ -26,6 +28,10 @@ Public Class EditorView
 #End Region
 
 #Region "EventHandlers"
+    Private Sub smiLoad_Click(sender As Object, e As EventArgs) Handles smiLoad.Click
+        RaiseEvent LoadForm()
+    End Sub
+
     Private Sub smiPreview_Click(sender As Object, e As EventArgs) Handles smiPreview.Click
         RaiseEvent Preview()
     End Sub
