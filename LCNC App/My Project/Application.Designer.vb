@@ -34,27 +34,8 @@ Namespace My
 
         <Global.System.Diagnostics.DebuggerStepThroughAttribute()>
         Protected Overrides Sub OnCreateMainForm()
-            ' Load configuration
-            Dim configuration = New ConfigurationBuilder().AddJsonFile("appsettings.json").Build()
-
-            ' Create a service collection
-            Dim serviceCollection As New ServiceCollection()
-
-            ' Get the connection string
-            Dim connectionString = configuration.GetConnectionString("MongoDB")
-
-            ' Register services
-            serviceCollection.AddSingleton(Of IFormComponentModelFactory, FormComponentModelFactory)
-            serviceCollection.AddSingleton(Of IFormControlFactory, FormControlFactory)
-            serviceCollection.AddScoped(Of IFormsRepo, FormsRepo)(Function(provider) New FormsRepo(connectionString))
-
-            ' Presenters
-            serviceCollection.AddTransient(Of MainPresenter)
-            serviceCollection.AddTransient(Of EditorPresenter)
-            serviceCollection.AddTransient(Of FormPreviewPresenter)
-
-            ' Build the service provider
-            Dim serviceProvider = serviceCollection.BuildServiceProvider()
+            ' Get the service provider
+            Dim serviceProvider = MainServices.GetServiceProvider()
 
             Me.MainForm = serviceProvider.GetService(Of MainPresenter).View
         End Sub

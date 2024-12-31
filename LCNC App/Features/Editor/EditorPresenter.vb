@@ -7,7 +7,7 @@ Public Class EditorPresenter
     Private ReadOnly preview As New FormView
 
     Private ReadOnly formSettings As New FormSettingsPresenter(Me.preview)
-    Private ReadOnly formComponents As New FormComponentsPresenter(Me.preview)
+    Private formComponents As FormComponentsPresenter
 
     ' Required Services
     Private ReadOnly serviceProvider As IServiceProvider
@@ -39,6 +39,7 @@ Public Class EditorPresenter
         Me._view.PanelRight.Controls.Add(Me.formSettings.View)
 
         ' Prepare Components View
+        Me.formComponents = New FormComponentsPresenter(Me.preview, Me.serviceProvider)
         Me.formComponents.View.Visible = False
         Me.formComponents.View.Dock = DockStyle.Fill
         Me._view.PanelRight.Controls.Add(Me.formComponents.View)

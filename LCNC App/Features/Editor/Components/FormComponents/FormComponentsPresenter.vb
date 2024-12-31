@@ -1,12 +1,15 @@
-﻿Public Class FormComponentsPresenter
+﻿
+Imports Microsoft.Extensions.DependencyInjection
+
+Public Class FormComponentsPresenter
     Implements IInspector
 
     Private ReadOnly OrigColor = Color.FromArgb(240, 240, 240)
 
     Private ReadOnly preview As FormView
 
-    Private ReadOnly factoryComp As New FormControlFactory
-    Private ReadOnly factoryModel As New FormComponentModelFactory
+    Private ReadOnly factoryComp As IFormControlFactory
+    Private ReadOnly factoryModel As IFormComponentModelFactory
 
     Private ReadOnly presenters As New Dictionary(Of Type, ISpecialized) From {
         {GetType(FormTextbox), New FormComponentsTextboxPresenter},
@@ -17,8 +20,11 @@
     Private ctrlToModel As New Dictionary(Of FormControlComponent, FormComponentModel)
     Private selectedControl As FormControlComponent
 
-    Public Sub New(preview As FormView)
+    Public Sub New(preview As FormView, serviceProvider As IServiceProvider)
         Me.preview = preview
+
+        Me.factoryComp = serviceProvider.GetService(Of FormComponentModelFactory)
+        Me.factoryModel = serviceProvider.GetService(Of FormComponentModelFactory)
 
         Me.PreparePresenters()
         Me.PrepareEventHandlers()

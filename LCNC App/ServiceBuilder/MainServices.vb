@@ -1,0 +1,30 @@
+﻿Imports Microsoft.Extensions.Configuration
+Imports Microsoft.Extensions.DependencyInjection
+
+Module MainServices
+    Public Function GetServiceProvider() As IServiceProvider
+        ' Load configuration
+        Dim configuration = New ConfigurationBuilder().AddJsonFile("appsettings.json").Build()
+
+        ' Create a service collection
+        Dim serviceCollection As New ServiceCollection()
+
+        ' Get the connection string
+        Dim connectionString = configuration.GetConnectionString("MongoDB")
+
+        ' Register services
+        serviceCollection.AddSingleton(Of IFormComponentModelFactory, FormComponentModelFactory)
+        serviceCollection.AddSingleton(Of IFormControlFactory, FormControlFactory)
+        serviceCollection.AddScoped(Of IFormsRepo, FormsRepo)(Function(provider) New FormsRepo(connectionString))
+
+        ' Feature Presenters
+        serviceCollection.AddTransient(Of MainPresenter)
+        serviceCollection.AddTransient(Of EditorPresenter)
+        serviceCollection.AddTransient(Of FormPreviewPresenter)
+
+        ' Build the service provider
+        Dim serviceProvider = serviceCollection.BuildServiceProvider()
+
+        Return serviceProvider
+    End Function
+End Module
