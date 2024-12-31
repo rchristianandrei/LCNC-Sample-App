@@ -23,8 +23,8 @@ Public Class FormComponentsPresenter
     Public Sub New(preview As FormView, serviceProvider As IServiceProvider)
         Me.preview = preview
 
-        Me.factoryComp = serviceProvider.GetService(Of FormComponentModelFactory)
-        Me.factoryModel = serviceProvider.GetService(Of FormComponentModelFactory)
+        Me.factoryComp = serviceProvider.GetService(Of IFormControlFactory)
+        Me.factoryModel = serviceProvider.GetService(Of IFormComponentModelFactory)
 
         Me.PreparePresenters()
         Me.PrepareEventHandlers()

@@ -18,7 +18,13 @@ Public Class FormsRepo
         Dim database As IMongoDatabase = client.GetDatabase(dbName)
         Dim collection As IMongoCollection(Of FormModel) = database.GetCollection(Of FormModel)(colName)
 
-        Await collection.InsertOneAsync(form)
+        If form.Id = ObjectId.Empty Then
+            Await collection.InsertOneAsync(form)
+        Else
+            ' Define the filter to find the document
+            Dim filter As FilterDefinition(Of FormModel) = Builders(Of FormModel).Filter.Eq(Function(f) f.Id, form.Id)
+            Await collection.ReplaceOneAsync(filter, form)
+        End If
     End Function
 
     Public Async Function LoadAll() As Task(Of ICollection(Of FormModel)) Implements IFormsRepo.LoadAll
