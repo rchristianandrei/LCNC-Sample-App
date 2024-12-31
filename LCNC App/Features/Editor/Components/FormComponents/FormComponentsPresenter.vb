@@ -229,6 +229,7 @@
 
             ctrl.Location = Me.LimitControlLocation(ctrl, x, y)
 
+            Me.ctrlToModel(ctrl).Location = ctrl.Location
             Me.ShowControlLocation(ctrl.Location)
         End If
     End Sub

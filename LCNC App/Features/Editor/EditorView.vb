@@ -16,6 +16,8 @@ Public Class EditorView
 #End Region
 
 #Region "Events"
+    Public Event Preview()
+
     Public Event Save()
 
     Public Event AddTextbox()
@@ -24,6 +26,10 @@ Public Class EditorView
 #End Region
 
 #Region "EventHandlers"
+    Private Sub smiPreview_Click(sender As Object, e As EventArgs) Handles smiPreview.Click
+        RaiseEvent Preview()
+    End Sub
+
     Private Sub smiSave_Click(sender As Object, e As EventArgs) Handles smiSave.Click
         RaiseEvent Save()
     End Sub

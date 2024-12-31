@@ -13,4 +13,25 @@
 
         Return control
     End Function
+
+    Public Function CreateFromModel(model As FormComponentModel) As FormControlComponent Implements IFormControlFactory.CreateFromModel
+        Dim control As FormControlComponent = Nothing
+        Select Case model.GetType
+            Case GetType(FormTextboxModel)
+                Dim temp = DirectCast(model, FormTextboxModel)
+                Dim textbox = New FormTextbox
+                control = textbox
+
+                textbox.Textbox.Multiline = temp.Multiline
+
+            Case GetType(FormDropdownboxModel)
+                control = New FormDropdownbox
+        End Select
+
+        control.Label = model.Label
+        control.Location = model.Location
+        control.Size = model.Size
+
+        Return control
+    End Function
 End Class

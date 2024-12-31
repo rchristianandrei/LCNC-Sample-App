@@ -22,10 +22,10 @@ Partial Class EditorView
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim CustomizableEdges5 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges6 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges7 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges8 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges1 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges2 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges3 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges4 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         pnlRight = New Guna.UI2.WinForms.Guna2Panel()
         pnlPreview = New Guna.UI2.WinForms.Guna2Panel()
         sepRight = New Guna.UI2.WinForms.Guna2VSeparator()
@@ -46,22 +46,22 @@ Partial Class EditorView
         ' pnlRight
         ' 
         pnlRight.BackColor = Color.Transparent
-        pnlRight.CustomizableEdges = CustomizableEdges5
+        pnlRight.CustomizableEdges = CustomizableEdges1
         pnlRight.Dock = DockStyle.Right
         pnlRight.Location = New Point(578, 25)
         pnlRight.Name = "pnlRight"
-        pnlRight.ShadowDecoration.CustomizableEdges = CustomizableEdges6
+        pnlRight.ShadowDecoration.CustomizableEdges = CustomizableEdges2
         pnlRight.Size = New Size(168, 481)
         pnlRight.TabIndex = 2
         ' 
         ' pnlPreview
         ' 
         pnlPreview.BackColor = SystemColors.Control
-        pnlPreview.CustomizableEdges = CustomizableEdges7
+        pnlPreview.CustomizableEdges = CustomizableEdges3
         pnlPreview.Dock = DockStyle.Fill
         pnlPreview.Location = New Point(0, 25)
         pnlPreview.Name = "pnlPreview"
-        pnlPreview.ShadowDecoration.CustomizableEdges = CustomizableEdges8
+        pnlPreview.ShadowDecoration.CustomizableEdges = CustomizableEdges4
         pnlPreview.Size = New Size(577, 481)
         pnlPreview.TabIndex = 3
         ' 
@@ -102,20 +102,20 @@ Partial Class EditorView
         ' smiLoad
         ' 
         smiLoad.Name = "smiLoad"
-        smiLoad.Size = New Size(115, 22)
+        smiLoad.Size = New Size(180, 22)
         smiLoad.Text = "Load"
         ' 
         ' smiPreview
         ' 
         smiPreview.Name = "smiPreview"
-        smiPreview.Size = New Size(115, 22)
+        smiPreview.Size = New Size(180, 22)
         smiPreview.Text = "Preview"
         ' 
         ' smiSave
         ' 
         smiSave.ForeColor = SystemColors.ControlText
         smiSave.Name = "smiSave"
-        smiSave.Size = New Size(115, 22)
+        smiSave.Size = New Size(180, 22)
         smiSave.Text = "Save"
         ' 
         ' smiReset
@@ -123,7 +123,7 @@ Partial Class EditorView
         smiReset.BackColor = SystemColors.Control
         smiReset.ForeColor = SystemColors.ControlText
         smiReset.Name = "smiReset"
-        smiReset.Size = New Size(115, 22)
+        smiReset.Size = New Size(180, 22)
         smiReset.Text = "Reset"
         ' 
         ' smiComponents
@@ -137,19 +137,19 @@ Partial Class EditorView
         ' 
         smiAddNew.DropDownItems.AddRange(New ToolStripItem() {smiTextbox, smiDropdownbox})
         smiAddNew.Name = "smiAddNew"
-        smiAddNew.Size = New Size(180, 22)
+        smiAddNew.Size = New Size(123, 22)
         smiAddNew.Text = "Add New"
         ' 
         ' smiTextbox
         ' 
         smiTextbox.Name = "smiTextbox"
-        smiTextbox.Size = New Size(180, 22)
+        smiTextbox.Size = New Size(149, 22)
         smiTextbox.Text = "Textbox"
         ' 
         ' smiDropdownbox
         ' 
         smiDropdownbox.Name = "smiDropdownbox"
-        smiDropdownbox.Size = New Size(180, 22)
+        smiDropdownbox.Size = New Size(149, 22)
         smiDropdownbox.Text = "Dropdownbox"
         ' 
         ' EditorView

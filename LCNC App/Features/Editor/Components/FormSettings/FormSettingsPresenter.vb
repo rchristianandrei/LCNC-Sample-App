@@ -32,44 +32,7 @@
 #Region "Properties"
     Public ReadOnly Property View As New FormSettingsView
 
-    Public Property FormText() As String
-        Get
-            Return Me.View.FormText
-        End Get
-        Set(ByVal value As String)
-            Me.View.FormText = value
-        End Set
-    End Property
-
-    Public Property FormWidth() As Integer
-        Get
-            Return Me.preview.Width
-        End Get
-        Set(ByVal value As Integer)
-            Me.preview.Width = value
-            Me.View.FormWidth = value
-        End Set
-    End Property
-
-    Public Property FormHeight() As Integer
-        Get
-            Return Me.preview.Height
-        End Get
-        Set(ByVal value As Integer)
-            Me.preview.Height = value
-            Me.View.FormHeight = value
-        End Set
-    End Property
-
-    Public Property SubmitText() As String
-        Get
-            Return Me.View.SubmitText
-        End Get
-        Set(ByVal value As String)
-            Me.preview.SubmitButton.Text = value
-            Me.View.SubmitText = value
-        End Set
-    End Property
+    Public Property Model As FormModel
 #End Region
 
 #Region "Events"
@@ -84,11 +47,16 @@
 
 #Region "Event Handlers"
     Private Sub PreviewSizeChanged(sender As Object, e As EventArgs)
+        Me.Model.FormWidth = Me.preview.Width
+        Me.Model.FormHeight = Me.preview.Height
+
         Me.View.FormWidth = Me.preview.Width
         Me.View.FormHeight = Me.preview.Height
     End Sub
 
     Private Sub FormTextChanged()
+        Me.Model.FormText = Me.View.FormText
+
         Me.preview.Text = Me.View.FormText
     End Sub
 
@@ -101,6 +69,7 @@
             Return
         End If
 
+        Me.Model.FormWidth = Me.preview.Width
         Me.preview.Width = width
     End Sub
 
@@ -113,10 +82,13 @@
             Return
         End If
 
+        Me.Model.FormHeight = Me.preview.Height
         Me.preview.Height = height
     End Sub
 
     Private Sub SubmitTextChanged()
+        Me.Model.SubmitText = Me.View.SubmitText
+
         Me.preview.SubmitButton.Text = Me.View.SubmitText
     End Sub
 #End Region

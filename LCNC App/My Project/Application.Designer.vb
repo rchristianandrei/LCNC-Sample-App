@@ -51,6 +51,7 @@ Namespace My
             ' Presenters
             serviceCollection.AddTransient(Of MainPresenter)
             serviceCollection.AddTransient(Of EditorPresenter)
+            serviceCollection.AddTransient(Of FormPreviewPresenter)
 
             ' Build the service provider
             Dim serviceProvider = serviceCollection.BuildServiceProvider()

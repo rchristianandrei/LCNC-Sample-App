@@ -1,4 +1,6 @@
-﻿Public Class EditorPresenter
+﻿Imports Microsoft.Extensions.DependencyInjection
+
+Public Class EditorPresenter
     Implements IFeature
 
     Private ReadOnly _view As New EditorView
@@ -8,13 +10,22 @@
     Private ReadOnly formComponents As New FormComponentsPresenter(Me.preview)
 
     ' Required Services
+    Private ReadOnly serviceProvider As IServiceProvider
     Private ReadOnly formsRepo As IFormsRepo
 
     ' Placeholders
-    Private ReadOnly formModel As New FormModel
+    Private previewOpened = False
+
+    Private ReadOnly formModel As New FormModel With {
+        .FormText = Me.preview.Text,
+        .FormWidth = Me.preview.Width,
+        .FormHeight = Me.preview.Height,
+        .SubmitText = Me.preview.SubmitButton.Text
+    }
     Private selectedInspector As IInspector = Me.formSettings
 
-    Public Sub New(formsRepo As IFormsRepo)
+    Public Sub New(serviceProvider As IServiceProvider, formsRepo As IFormsRepo)
+        Me.serviceProvider = serviceProvider
         Me.formsRepo = formsRepo
 
         Me.PrepareFeature()
@@ -24,6 +35,7 @@
     Private Sub PrepareFeature()
         ' Prepare Settings View
         Me.formSettings.View.Dock = DockStyle.Fill
+        Me.formSettings.Model = Me.formModel
         Me._view.PanelRight.Controls.Add(Me.formSettings.View)
 
         ' Prepare Components View
@@ -45,6 +57,7 @@
         AddHandler Me.formSettings.ShowFormInspector, AddressOf Me.ShowFormInspector
         AddHandler Me.formComponents.ShowCompInspector, AddressOf Me.ShowCompInspector
 
+        AddHandler Me._view.Preview, AddressOf Me.OpenPreview
         AddHandler Me._view.Save, AddressOf Me.SaveForm
 
         AddHandler Me._view.AddTextbox, Sub() Me.formComponents.AddComponent(FormComponentType.Textbox)
@@ -80,12 +93,17 @@
 #End Region
 
 #Region "View Event Handlers"
-    Private Async Sub SaveForm()
-        Me.formModel.FormText = Me.formSettings.FormText
-        Me.formModel.FormWidth = Me.formSettings.FormWidth
-        Me.formModel.FormHeight = Me.formSettings.FormHeight
-        Me.formModel.SubmitText = Me.formSettings.SubmitText
+    Private Sub OpenPreview()
+        If Me.previewOpened Then Return
 
+        Dim preview = Me.serviceProvider.GetService(Of FormPreviewPresenter)()
+        Me.previewOpened = True
+        AddHandler preview.View.FormClosing, Sub() Me.previewOpened = False
+        Me.formModel.Components = Me.formComponents.ComponentModels
+        preview.Show(Me.formModel, Me.View.ParentForm)
+    End Sub
+
+    Private Async Sub SaveForm()
         Me.formModel.Components = Me.formComponents.ComponentModels
 
         Try
