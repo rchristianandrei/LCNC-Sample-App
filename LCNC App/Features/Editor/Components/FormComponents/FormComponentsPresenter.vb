@@ -61,6 +61,7 @@ Public Class FormComponentsPresenter
         If Me.selectedControl Is Nothing Then Return
 
         Me.selectedControl.BackColor = Me.OrigColor
+        Me.SubscribeDragFeature(Me.selectedControl, False)
         Me.selectedControl = Nothing
     End Sub
 #End Region
@@ -93,8 +94,10 @@ Public Class FormComponentsPresenter
             Return
         End If
 
-        Me.selectedControl.Location = New Point(x, y)
+        Me.selectedControl.Location = Me.LimitControlLocation(Me.selectedControl, x, y)
         Me.dictionary(Me.selectedControl).Location = Me.selectedControl.Location
+
+        Me.ShowControlLocation(Me.selectedControl.Location)
     End Sub
 
     Private Sub CompSizeChanged()
@@ -134,15 +137,16 @@ Public Class FormComponentsPresenter
 
         If Me.selectedControl IsNot Nothing Then
             Me.selectedControl.BackColor = Me.OrigColor
+            Me.SubscribeDragFeature(Me.selectedControl, False)
         End If
 
         Me.selectedControl = control
+        Me.SubscribeDragFeature(Me.selectedControl, True)
 
         ' Show Values
         Me.View.Label = control.Label
 
-        Me.View.LocationX = control.Location.X
-        Me.View.LocationY = control.Location.Y
+        Me.ShowControlLocation(control.Location)
 
         Me.View.SizeWidth = control.Width
         Me.View.SizeHeight = control.Height
@@ -151,5 +155,87 @@ Public Class FormComponentsPresenter
 
         RaiseEvent ShowCompInspector()
     End Sub
+
+    ' Variables to store the position and dragging state
+    Private isDragging As Boolean = False
+    Private startPoint As Point
+
+    ''' <summary>
+    ''' Subscribe / Unsubscribe drag feature delegates
+    ''' </summary>
+    ''' <param name="ctrl">The control in question.</param>
+    ''' <param name="subscribe">Subscribe or unsubscribe.</param>
+    Private Sub SubscribeDragFeature(ctrl As Control, subscribe As Boolean)
+        If subscribe Then
+            AddHandler ctrl.MouseDown, AddressOf Me.Component_MouseDown
+            AddHandler ctrl.MouseMove, AddressOf Me.Component_MouseMove
+            AddHandler ctrl.MouseUp, AddressOf Me.Component_MouseUp
+        Else
+            RemoveHandler ctrl.MouseDown, AddressOf Me.Component_MouseDown
+            RemoveHandler ctrl.MouseMove, AddressOf Me.Component_MouseMove
+            RemoveHandler ctrl.MouseUp, AddressOf Me.Component_MouseUp
+        End If
+    End Sub
+
+    ' MouseDown event to start dragging
+    Private Sub Component_MouseDown(sender As Object, e As MouseEventArgs)
+        If e.Button = MouseButtons.Left Then
+            Me.isDragging = True
+            Me.startPoint = e.Location
+        End If
+    End Sub
+
+    ' MouseMove event to drag the control
+    Private Sub Component_MouseMove(sender As Object, e As MouseEventArgs)
+        If Me.isDragging Then
+            Dim ctrl As Control = CType(sender, Control)
+
+            Dim x As Integer = ctrl.Left + e.X - startPoint.X
+            Dim y As Integer = ctrl.Top + e.Y - startPoint.Y
+
+            ctrl.Location = Me.LimitControlLocation(ctrl, x, y)
+
+            Me.ShowControlLocation(ctrl.Location)
+        End If
+    End Sub
+
+    ' MouseUp event to stop dragging
+    Private Sub Component_MouseUp(sender As Object, e As MouseEventArgs)
+        Me.isDragging = False
+    End Sub
+#End Region
+
+#Region "Utilities"
+    ''' <summary>
+    ''' Shows the Location X & Y of the control in View
+    ''' </summary>
+    ''' <param name="ctrl"></param>
+    Private Sub ShowControlLocation(location As Point)
+        Me.View.LocationX = location.X
+        Me.View.LocationY = location.Y
+    End Sub
+
+    ''' <summary>
+    ''' Limit the location of the control inside the form
+    ''' </summary>
+    ''' <param name="ctrl">The control in question.</param>
+    ''' <param name="x">Target X Location.</param>
+    ''' <param name="y">Target Y Location.</param>
+    ''' <returns></returns>
+    Private Function LimitControlLocation(ctrl As Control, x As Integer, y As Integer)
+        If x < 0 Then
+            x = 0
+        ElseIf x > Me.preview.ComponentsPanel.Width - ctrl.Width Then
+            x = Me.preview.ComponentsPanel.Width - ctrl.Width
+        End If
+
+        If y < 0 Then
+            y = 0
+        ElseIf y > Me.preview.ComponentsPanel.Height - ctrl.Height Then
+            y = Me.preview.ComponentsPanel.Height - ctrl.Height
+        End If
+
+        Return New Point(x, y)
+    End Function
 #End Region
 End Class
