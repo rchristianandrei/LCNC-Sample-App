@@ -1,6 +1,4 @@
-﻿Imports LCNC_App.FormControlFactory
-
-Public Class FormComponentsPresenter
+﻿Public Class FormComponentsPresenter
     Implements IInspector
 
     Private ReadOnly OrigColor = Color.FromArgb(240, 240, 240)
@@ -10,13 +8,26 @@ Public Class FormComponentsPresenter
     Private ReadOnly factoryComp As New FormControlFactory
     Private ReadOnly factoryModel As New FormComponentModelFactory
 
-    Private dictionary As New Dictionary(Of FormControlComponent, FormComponentModel)
+    Private ReadOnly presenters As New Dictionary(Of Type, ISpecialized) From {
+        {GetType(FormTextbox), New FormComponentsTextboxPresenter},
+        {GetType(FormDropdownbox), New FormComponentsDropdownboxPresenter}
+    }
+    Private selectedSpecialized As ISpecialized
+
+    Private ctrlToModel As New Dictionary(Of FormControlComponent, FormComponentModel)
     Private selectedControl As FormControlComponent
 
     Public Sub New(preview As FormView)
         Me.preview = preview
 
+        Me.PreparePresenters()
         Me.PrepareEventHandlers()
+    End Sub
+
+    Private Sub PreparePresenters()
+        For Each special In Me.presenters.Values
+            Me.View.SpecializedPanel.Controls.Add(special.View)
+        Next
     End Sub
 
     Private Sub PrepareEventHandlers()
@@ -30,7 +41,7 @@ Public Class FormComponentsPresenter
 
     Public ReadOnly Property ComponentModels() As List(Of FormComponentModel)
         Get
-            Return Me.dictionary.Values.ToList()
+            Return Me.ctrlToModel.Values.ToList()
         End Get
     End Property
 #End Region
@@ -52,7 +63,7 @@ Public Class FormComponentsPresenter
         AddHandler control.Click, AddressOf ClickComponent
         Me.preview.ComponentsPanel.Controls.Add(control)
 
-        Me.dictionary.Add(control, model)
+        Me.ctrlToModel.Add(control, model)
     End Sub
 
     Public Sub Show(visible As Boolean) Implements IInspector.Show
@@ -70,7 +81,7 @@ Public Class FormComponentsPresenter
 #Region "Event Handlers"
     Private Sub CompLabelChanged()
         Me.selectedControl.Label = Me.View.Label
-        Me.dictionary(Me.selectedControl).Label = Me.View.Label
+        Me.ctrlToModel(Me.selectedControl).Label = Me.View.Label
     End Sub
 
     Private Sub CompLocationChanged()
@@ -96,7 +107,7 @@ Public Class FormComponentsPresenter
         End If
 
         Me.selectedControl.Location = Me.LimitControlLocation(Me.selectedControl, x, y)
-        Me.dictionary(Me.selectedControl).Location = Me.selectedControl.Location
+        Me.ctrlToModel(Me.selectedControl).Location = Me.selectedControl.Location
 
         Me.ShowControlLocation(Me.selectedControl.Location)
     End Sub
@@ -107,9 +118,9 @@ Public Class FormComponentsPresenter
         ' Rearrange
         Dim temp As New Dictionary(Of FormControlComponent, FormComponentModel)
         For Each ctrl As FormControlComponent In Me.preview.ComponentsPanel.Controls
-            temp.Add(ctrl, Me.dictionary(ctrl))
+            temp.Add(ctrl, Me.ctrlToModel(ctrl))
         Next
-        Me.dictionary = temp
+        Me.ctrlToModel = temp
     End Sub
 
     Private Sub CompSizeChanged()
@@ -135,7 +146,7 @@ Public Class FormComponentsPresenter
         End If
 
         Me.selectedControl.Size = New Size(width, height)
-        Me.dictionary(Me.selectedControl).Size = Me.selectedControl.Size
+        Me.ctrlToModel(Me.selectedControl).Size = Me.selectedControl.Size
     End Sub
 #End Region
 
@@ -164,6 +175,17 @@ Public Class FormComponentsPresenter
         Me.View.SizeHeight = control.Height
 
         Me.View.HeightEnabled = control.CanSetHeight
+
+        ' Specialization
+        If Me.selectedSpecialized IsNot Nothing Then
+            Me.selectedSpecialized.Hide()
+        End If
+
+        Dim type = control.GetType
+        If Me.presenters.ContainsKey(type) Then
+            Me.selectedSpecialized = Me.presenters(control.GetType)
+            Me.selectedSpecialized.Show(control, Me.ctrlToModel(control))
+        End If
 
         RaiseEvent ShowCompInspector()
     End Sub

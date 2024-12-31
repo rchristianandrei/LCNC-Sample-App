@@ -44,6 +44,10 @@ Partial Class FormComponentsView
         Dim CustomizableEdges18 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim CustomizableEdges21 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim CustomizableEdges22 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges25 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges26 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges23 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges24 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         grpSize = New GroupBox()
         pnlHeight = New Guna.UI2.WinForms.Guna2Panel()
         txtHeight = New Guna.UI2.WinForms.Guna2TextBox()
@@ -63,6 +67,9 @@ Partial Class FormComponentsView
         pnlLabel = New Panel()
         txtLabel = New Guna.UI2.WinForms.Guna2TextBox()
         lblLabel = New Guna.UI2.WinForms.Guna2HtmlLabel()
+        lblHeader = New Guna.UI2.WinForms.Guna2HtmlLabel()
+        pnlContainer = New Guna.UI2.WinForms.Guna2Panel()
+        pnlSpecialized = New Guna.UI2.WinForms.Guna2Panel()
         grpSize.SuspendLayout()
         pnlHeight.SuspendLayout()
         pnlWidth.SuspendLayout()
@@ -71,6 +78,7 @@ Partial Class FormComponentsView
         pnlY.SuspendLayout()
         pnlX.SuspendLayout()
         pnlLabel.SuspendLayout()
+        pnlContainer.SuspendLayout()
         SuspendLayout()
         ' 
         ' grpSize
@@ -80,9 +88,9 @@ Partial Class FormComponentsView
         grpSize.Controls.Add(pnlHeight)
         grpSize.Controls.Add(pnlWidth)
         grpSize.Dock = DockStyle.Top
-        grpSize.Location = New Point(3, 155)
+        grpSize.Location = New Point(0, 152)
         grpSize.Name = "grpSize"
-        grpSize.Size = New Size(162, 90)
+        grpSize.Size = New Size(156, 90)
         grpSize.TabIndex = 3
         grpSize.TabStop = False
         grpSize.Text = "Size"
@@ -99,7 +107,7 @@ Partial Class FormComponentsView
         pnlHeight.Name = "pnlHeight"
         pnlHeight.Padding = New Padding(3)
         pnlHeight.ShadowDecoration.CustomizableEdges = CustomizableEdges4
-        pnlHeight.Size = New Size(156, 34)
+        pnlHeight.Size = New Size(150, 34)
         pnlHeight.TabIndex = 5
         ' 
         ' txtHeight
@@ -123,7 +131,7 @@ Partial Class FormComponentsView
         txtHeight.PlaceholderText = ""
         txtHeight.SelectedText = ""
         txtHeight.ShadowDecoration.CustomizableEdges = CustomizableEdges2
-        txtHeight.Size = New Size(104, 28)
+        txtHeight.Size = New Size(98, 28)
         txtHeight.TabIndex = 5
         ' 
         ' lblHeight
@@ -147,7 +155,7 @@ Partial Class FormComponentsView
         pnlWidth.Name = "pnlWidth"
         pnlWidth.Padding = New Padding(3)
         pnlWidth.ShadowDecoration.CustomizableEdges = CustomizableEdges8
-        pnlWidth.Size = New Size(156, 34)
+        pnlWidth.Size = New Size(150, 34)
         pnlWidth.TabIndex = 5
         ' 
         ' txtWidth
@@ -171,7 +179,7 @@ Partial Class FormComponentsView
         txtWidth.PlaceholderText = ""
         txtWidth.SelectedText = ""
         txtWidth.ShadowDecoration.CustomizableEdges = CustomizableEdges6
-        txtWidth.Size = New Size(104, 28)
+        txtWidth.Size = New Size(98, 28)
         txtWidth.TabIndex = 3
         ' 
         ' lblWidth
@@ -192,9 +200,9 @@ Partial Class FormComponentsView
         grpLocation.Controls.Add(pnlY)
         grpLocation.Controls.Add(pnlX)
         grpLocation.Dock = DockStyle.Top
-        grpLocation.Location = New Point(3, 31)
+        grpLocation.Location = New Point(0, 28)
         grpLocation.Name = "grpLocation"
-        grpLocation.Size = New Size(162, 124)
+        grpLocation.Size = New Size(156, 124)
         grpLocation.TabIndex = 2
         grpLocation.TabStop = False
         grpLocation.Text = "Location"
@@ -210,11 +218,12 @@ Partial Class FormComponentsView
         pnlZ.Name = "pnlZ"
         pnlZ.Padding = New Padding(3)
         pnlZ.ShadowDecoration.CustomizableEdges = CustomizableEdges12
-        pnlZ.Size = New Size(156, 34)
+        pnlZ.Size = New Size(150, 34)
         pnlZ.TabIndex = 5
         ' 
         ' btnBringToFront
         ' 
+        btnBringToFront.Anchor = AnchorStyles.Top
         btnBringToFront.BorderColor = Color.FromArgb(CByte(213), CByte(218), CByte(223))
         btnBringToFront.BorderRadius = 6
         btnBringToFront.BorderThickness = 1
@@ -246,7 +255,7 @@ Partial Class FormComponentsView
         pnlY.Name = "pnlY"
         pnlY.Padding = New Padding(3)
         pnlY.ShadowDecoration.CustomizableEdges = CustomizableEdges16
-        pnlY.Size = New Size(156, 34)
+        pnlY.Size = New Size(150, 34)
         pnlY.TabIndex = 5
         ' 
         ' txtY
@@ -270,7 +279,7 @@ Partial Class FormComponentsView
         txtY.PlaceholderText = ""
         txtY.SelectedText = ""
         txtY.ShadowDecoration.CustomizableEdges = CustomizableEdges14
-        txtY.Size = New Size(104, 28)
+        txtY.Size = New Size(98, 28)
         txtY.TabIndex = 7
         ' 
         ' lblY
@@ -295,7 +304,7 @@ Partial Class FormComponentsView
         pnlX.Name = "pnlX"
         pnlX.Padding = New Padding(3)
         pnlX.ShadowDecoration.CustomizableEdges = CustomizableEdges20
-        pnlX.Size = New Size(156, 34)
+        pnlX.Size = New Size(150, 34)
         pnlX.TabIndex = 5
         ' 
         ' txtX
@@ -319,7 +328,7 @@ Partial Class FormComponentsView
         txtX.PlaceholderText = ""
         txtX.SelectedText = ""
         txtX.ShadowDecoration.CustomizableEdges = CustomizableEdges18
-        txtX.Size = New Size(104, 28)
+        txtX.Size = New Size(98, 28)
         txtX.TabIndex = 5
         ' 
         ' lblX
@@ -339,10 +348,10 @@ Partial Class FormComponentsView
         pnlLabel.Controls.Add(txtLabel)
         pnlLabel.Controls.Add(lblLabel)
         pnlLabel.Dock = DockStyle.Top
-        pnlLabel.Location = New Point(3, 3)
+        pnlLabel.Location = New Point(0, 0)
         pnlLabel.Margin = New Padding(0)
         pnlLabel.Name = "pnlLabel"
-        pnlLabel.Size = New Size(162, 28)
+        pnlLabel.Size = New Size(156, 28)
         pnlLabel.TabIndex = 4
         ' 
         ' txtLabel
@@ -366,7 +375,7 @@ Partial Class FormComponentsView
         txtLabel.PlaceholderText = ""
         txtLabel.SelectedText = ""
         txtLabel.ShadowDecoration.CustomizableEdges = CustomizableEdges22
-        txtLabel.Size = New Size(104, 28)
+        txtLabel.Size = New Size(98, 28)
         txtLabel.TabIndex = 7
         ' 
         ' lblLabel
@@ -379,13 +388,50 @@ Partial Class FormComponentsView
         lblLabel.TabIndex = 6
         lblLabel.Text = "Label"
         ' 
+        ' lblHeader
+        ' 
+        lblHeader.AutoSize = False
+        lblHeader.BackColor = Color.Transparent
+        lblHeader.Dock = DockStyle.Top
+        lblHeader.Font = New Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblHeader.Location = New Point(3, 3)
+        lblHeader.Name = "lblHeader"
+        lblHeader.Size = New Size(162, 27)
+        lblHeader.TabIndex = 5
+        lblHeader.Text = "Component Settings"
+        lblHeader.TextAlignment = ContentAlignment.MiddleCenter
+        ' 
+        ' pnlContainer
+        ' 
+        pnlContainer.AutoScroll = True
+        pnlContainer.Controls.Add(pnlSpecialized)
+        pnlContainer.Controls.Add(grpSize)
+        pnlContainer.Controls.Add(grpLocation)
+        pnlContainer.Controls.Add(pnlLabel)
+        pnlContainer.CustomizableEdges = CustomizableEdges25
+        pnlContainer.Location = New Point(6, 36)
+        pnlContainer.Name = "pnlContainer"
+        pnlContainer.ShadowDecoration.CustomizableEdges = CustomizableEdges26
+        pnlContainer.Size = New Size(156, 439)
+        pnlContainer.TabIndex = 6
+        ' 
+        ' pnlSpecialized
+        ' 
+        pnlSpecialized.AutoSizeMode = AutoSizeMode.GrowAndShrink
+        pnlSpecialized.CustomizableEdges = CustomizableEdges23
+        pnlSpecialized.Dock = DockStyle.Top
+        pnlSpecialized.Location = New Point(0, 242)
+        pnlSpecialized.Name = "pnlSpecialized"
+        pnlSpecialized.ShadowDecoration.CustomizableEdges = CustomizableEdges24
+        pnlSpecialized.Size = New Size(156, 78)
+        pnlSpecialized.TabIndex = 5
+        ' 
         ' FormComponentsView
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
-        Controls.Add(grpSize)
-        Controls.Add(grpLocation)
-        Controls.Add(pnlLabel)
+        Controls.Add(pnlContainer)
+        Controls.Add(lblHeader)
         Name = "FormComponentsView"
         Padding = New Padding(3)
         Size = New Size(168, 481)
@@ -404,8 +450,9 @@ Partial Class FormComponentsView
         pnlX.PerformLayout()
         pnlLabel.ResumeLayout(False)
         pnlLabel.PerformLayout()
+        pnlContainer.ResumeLayout(False)
+        pnlContainer.PerformLayout()
         ResumeLayout(False)
-        PerformLayout()
     End Sub
     Friend WithEvents grpLabel As GroupBox
     Friend WithEvents Guna2TextBox1 As Guna.UI2.WinForms.Guna2TextBox
@@ -428,5 +475,8 @@ Partial Class FormComponentsView
     Private WithEvents pnlWidth As Guna.UI2.WinForms.Guna2Panel
     Private WithEvents pnlHeight As Guna.UI2.WinForms.Guna2Panel
     Friend WithEvents btnBringToFront As Guna.UI2.WinForms.Guna2Button
+    Private WithEvents lblHeader As Guna.UI2.WinForms.Guna2HtmlLabel
+    Friend WithEvents pnlContainer As Guna.UI2.WinForms.Guna2Panel
+    Friend WithEvents pnlSpecialized As Guna.UI2.WinForms.Guna2Panel
 
 End Class

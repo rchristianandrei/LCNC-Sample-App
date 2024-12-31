@@ -1,4 +1,14 @@
-﻿Public Class FormComponentsView
+﻿Imports Guna.UI2.WinForms
+
+Public Class FormComponentsView
+    Public Sub New()
+
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ' Add any initialization after the InitializeComponent() call.
+        Me.pnlSpecialized.AutoSize = True
+    End Sub
 
 #Region "Properties"
     Public Property Label() As String
@@ -53,6 +63,12 @@
         Set(ByVal value As Boolean)
             Me.txtHeight.Enabled = value
         End Set
+    End Property
+
+    Public ReadOnly Property SpecializedPanel As Guna2Panel
+        Get
+            Return Me.pnlSpecialized
+        End Get
     End Property
 #End Region
 
