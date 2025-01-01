@@ -27,7 +27,7 @@ Public Class FormDropdownbox
         End Get
     End Property
 
-    Public ReadOnly Property Combobox() As Guna2ComboBox
+    Public ReadOnly Property Dropdownbox() As Guna2ComboBox
         Get
             Return Me.cboCombobox
         End Get

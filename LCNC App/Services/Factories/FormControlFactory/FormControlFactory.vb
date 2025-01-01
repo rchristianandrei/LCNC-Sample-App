@@ -25,7 +25,16 @@
                 textbox.Textbox.Multiline = temp.Multiline
 
             Case GetType(FormDropdownboxModel)
-                control = New FormDropdownbox
+                Dim temp = DirectCast(model, FormDropdownboxModel)
+                Dim dropdownbox = New FormDropdownbox
+                control = dropdownbox
+
+                If temp.Items IsNot Nothing Then
+                    dropdownbox.Dropdownbox.Items.Clear()
+                    For Each item In temp.Items
+                        dropdownbox.Dropdownbox.Items.Add(item)
+                    Next
+                End If
         End Select
 
         control.Label = model.Label

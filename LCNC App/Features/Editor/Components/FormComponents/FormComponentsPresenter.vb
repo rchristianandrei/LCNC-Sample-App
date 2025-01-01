@@ -33,6 +33,7 @@ Public Class FormComponentsPresenter
     Private Sub PreparePresenters()
         For Each special In Me.presenters.Values
             Me.View.SpecializedPanel.Controls.Add(special.View)
+            special.Hide()
         Next
     End Sub
 
@@ -89,6 +90,10 @@ Public Class FormComponentsPresenter
 
         For Each model In list
             Dim control = Me.factoryComp.CreateFromModel(model)
+            control.Active = False
+
+            AddHandler control.Click, AddressOf ClickComponent
+
             Me.ctrlToModel.Add(control, model)
             Me.preview.ComponentsPanel.Controls.Add(control)
         Next
