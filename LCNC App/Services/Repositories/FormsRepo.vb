@@ -27,7 +27,7 @@ Public Class FormsRepo
         End If
     End Function
 
-    Public Async Function LoadAll() As Task(Of ICollection(Of FormModel)) Implements IFormsRepo.LoadAll
+    Public Async Function LoadAll() As Task(Of IEnumerable(Of FormModel)) Implements IFormsRepo.LoadAll
         Dim client As New MongoClient(New MongoUrl(connString))
 
         Dim database As IMongoDatabase = client.GetDatabase(dbName)

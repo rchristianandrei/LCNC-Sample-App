@@ -18,6 +18,8 @@ Module MainServices
         serviceCollection.AddScoped(Of IFormsRepo, FormsRepo)(Function(provider) New FormsRepo(connectionString))
 
         ' Feature Presenters
+        serviceCollection.AddTransient(Of LoadFormPresenter)
+
         serviceCollection.AddTransient(Of MainPresenter)
         serviceCollection.AddTransient(Of EditorPresenter)
         serviceCollection.AddTransient(Of FormPreviewPresenter)

@@ -95,15 +95,16 @@ Public Class EditorPresenter
 #End Region
 
 #Region "View Event Handlers"
-    Private Async Sub LoadForm()
-        Try
-            Me.formModel = Await Me.formsRepo.LoadOne(New MongoDB.Bson.ObjectId("67753ae67a5bf4e2ce395fd1"))
+    Private Sub LoadForm()
+        Dim loadPresenter = Me.serviceProvider.GetService(Of LoadFormPresenter)
+        Dim result = loadPresenter.ShowDialog(Me.View.ParentForm)
 
-            Me.formSettings.SetModel(Me.formModel)
-            Me.formComponents.SetComponents(Me.formModel.Components)
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
+        If result <> DialogResult.Yes Then Return
+
+        Me.formModel = loadPresenter.FormModel
+
+        Me.formSettings.SetModel(Me.formModel)
+        Me.formComponents.SetComponents(Me.formModel.Components)
     End Sub
 
     Private Sub OpenPreview()
