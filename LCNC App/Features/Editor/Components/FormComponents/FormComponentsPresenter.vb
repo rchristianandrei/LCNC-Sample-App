@@ -56,6 +56,7 @@ Public Class FormComponentsPresenter
 
 #Region "Events"
     Public Event ShowCompInspector()
+    Public Event HideCompInspector()
 #End Region
 
 #Region "Public Methods"
@@ -88,6 +89,8 @@ Public Class FormComponentsPresenter
     Public Sub SetComponents(list As IEnumerable(Of FormComponentModel))
         Me.ctrlToModel.Clear()
         Me.preview.ComponentsPanel.Controls.Clear()
+
+        If list Is Nothing Then Return
 
         For Each model In list
             Dim control = Me.factoryComp.CreateFromModel(model)
@@ -184,6 +187,10 @@ Public Class FormComponentsPresenter
         Me.ctrlToModel.Remove(ctrl)
 
         ctrl.Dispose()
+
+        Me.selectedControl = Nothing
+
+        RaiseEvent HideCompInspector()
     End Sub
 #End Region
 

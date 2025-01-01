@@ -22,6 +22,7 @@ Public Class EditorPresenter
         .FormHeight = Me.preview.Height,
         .SubmitText = Me.preview.SubmitButton.Text
     }
+    Private ReadOnly defaultInspector As IInspector = Me.formSettings
     Private selectedInspector As IInspector = Me.formSettings
 
     Public Sub New(serviceProvider As IServiceProvider, formsRepo As IFormsRepo)
@@ -56,8 +57,11 @@ Public Class EditorPresenter
 
     Private Sub PrepareEventHandlers()
         AddHandler Me.formSettings.ShowFormInspector, AddressOf Me.ShowFormInspector
-        AddHandler Me.formComponents.ShowCompInspector, AddressOf Me.ShowCompInspector
 
+        AddHandler Me.formComponents.ShowCompInspector, AddressOf Me.ShowCompInspector
+        AddHandler Me.formComponents.HideCompInspector, AddressOf Me.HideCompInspector
+
+        AddHandler Me._view.CreateNew, AddressOf Me.CreateNew
         AddHandler Me._view.LoadForm, AddressOf Me.LoadForm
         AddHandler Me._view.Preview, AddressOf Me.OpenPreview
         AddHandler Me._view.Save, AddressOf Me.SaveForm
@@ -92,9 +96,30 @@ Public Class EditorPresenter
 
         Me.selectedInspector = Me.formComponents
     End Sub
+
+    Private Sub HideCompInspector()
+        Me.ShowDefaultInspector()
+    End Sub
 #End Region
 
 #Region "View Event Handlers"
+    Private Sub CreateNew()
+        Dim res = MessageBox.Show("Are you sure you want to create new form?", "Create New Form", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+
+        If res <> DialogResult.Yes Then Return
+
+        Me.formModel = New FormModel With {
+            .FormText = Me.preview.Text,
+            .FormWidth = Me.preview.Width,
+            .FormHeight = Me.preview.Height,
+            .SubmitText = Me.preview.SubmitButton.Text
+        }
+
+        Me.SetModel(Me.formModel)
+
+        Me.ShowDefaultInspector()
+    End Sub
+
     Private Sub LoadForm()
         Dim loadPresenter = Me.serviceProvider.GetService(Of LoadFormPresenter)
         Dim result = loadPresenter.ShowDialog(Me.View.ParentForm)
@@ -103,8 +128,7 @@ Public Class EditorPresenter
 
         Me.formModel = loadPresenter.FormModel
 
-        Me.formSettings.SetModel(Me.formModel)
-        Me.formComponents.SetComponents(Me.formModel.Components)
+        Me.SetModel(Me.formModel)
     End Sub
 
     Private Sub OpenPreview()
@@ -125,6 +149,19 @@ Public Class EditorPresenter
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
+    End Sub
+#End Region
+
+#Region "Utilities Methods"
+    Public Sub ShowDefaultInspector()
+        Me.selectedInspector?.Show(False)
+        Me.selectedInspector = Me.defaultInspector
+        Me.selectedInspector.Show(True)
+    End Sub
+
+    Public Sub SetModel(formModel As FormModel)
+        Me.formSettings.SetModel(formModel)
+        Me.formComponents.SetComponents(formModel.Components)
     End Sub
 #End Region
 End Class

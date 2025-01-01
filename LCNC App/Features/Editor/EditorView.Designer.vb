@@ -32,9 +32,11 @@ Partial Class EditorView
         sepTop = New Guna.UI2.WinForms.Guna2Separator()
         mnsOptions = New MenuStrip()
         smiForm = New ToolStripMenuItem()
+        smiCreateNew = New ToolStripMenuItem()
         smiLoad = New ToolStripMenuItem()
         smiPreview = New ToolStripMenuItem()
         smiSave = New ToolStripMenuItem()
+        smiDelete = New ToolStripMenuItem()
         smiReset = New ToolStripMenuItem()
         smiComponents = New ToolStripMenuItem()
         smiAddNew = New ToolStripMenuItem()
@@ -94,10 +96,16 @@ Partial Class EditorView
         ' 
         ' smiForm
         ' 
-        smiForm.DropDownItems.AddRange(New ToolStripItem() {smiLoad, smiPreview, smiSave, smiReset})
+        smiForm.DropDownItems.AddRange(New ToolStripItem() {smiCreateNew, smiLoad, smiPreview, smiSave, smiDelete, smiReset})
         smiForm.Name = "smiForm"
         smiForm.Size = New Size(47, 20)
         smiForm.Text = "Form"
+        ' 
+        ' smiCreateNew
+        ' 
+        smiCreateNew.Name = "smiCreateNew"
+        smiCreateNew.Size = New Size(180, 22)
+        smiCreateNew.Text = "Create New"
         ' 
         ' smiLoad
         ' 
@@ -117,6 +125,12 @@ Partial Class EditorView
         smiSave.Name = "smiSave"
         smiSave.Size = New Size(180, 22)
         smiSave.Text = "Save"
+        ' 
+        ' smiDelete
+        ' 
+        smiDelete.Name = "smiDelete"
+        smiDelete.Size = New Size(180, 22)
+        smiDelete.Text = "Delete"
         ' 
         ' smiReset
         ' 
@@ -182,5 +196,7 @@ Partial Class EditorView
     Friend WithEvents smiAddNew As ToolStripMenuItem
     Friend WithEvents smiTextbox As ToolStripMenuItem
     Friend WithEvents smiDropdownbox As ToolStripMenuItem
+    Friend WithEvents smiCreateNew As ToolStripMenuItem
+    Friend WithEvents smiDelete As ToolStripMenuItem
 
 End Class

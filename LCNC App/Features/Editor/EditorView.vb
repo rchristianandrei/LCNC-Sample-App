@@ -16,11 +16,15 @@ Public Class EditorView
 #End Region
 
 #Region "Events"
+    Public Event CreateNew()
+
     Public Event LoadForm()
 
     Public Event Preview()
 
     Public Event Save()
+
+    Public Event DeleteForm()
 
     Public Event AddTextbox()
 
@@ -28,6 +32,10 @@ Public Class EditorView
 #End Region
 
 #Region "EventHandlers"
+    Private Sub smiCreateNew_Click(sender As Object, e As EventArgs) Handles smiCreateNew.Click
+        RaiseEvent CreateNew()
+    End Sub
+
     Private Sub smiLoad_Click(sender As Object, e As EventArgs) Handles smiLoad.Click
         RaiseEvent LoadForm()
     End Sub
@@ -38,6 +46,10 @@ Public Class EditorView
 
     Private Sub smiSave_Click(sender As Object, e As EventArgs) Handles smiSave.Click
         RaiseEvent Save()
+    End Sub
+
+    Private Sub smiDelete_Click(sender As Object, e As EventArgs) Handles smiDelete.Click
+        RaiseEvent DeleteForm()
     End Sub
 
     Private Sub smiTextbox_Click(sender As Object, e As EventArgs) Handles smiTextbox.Click
