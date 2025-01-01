@@ -42,6 +42,7 @@ Public Class FormComponentsPresenter
         AddHandler Me.View.CompLocationChanged, AddressOf Me.CompLocationChanged
         AddHandler Me.View.CompBringToFront, AddressOf Me.CompBringToFront
         AddHandler Me.View.CompSizeChanged, AddressOf Me.CompSizeChanged
+        AddHandler Me.View.DeleteComponent, AddressOf Me.DeleteComponent
     End Sub
 #Region "Properties"
     Public ReadOnly Property View As New FormComponentsView
@@ -169,6 +170,20 @@ Public Class FormComponentsPresenter
 
         Me.selectedControl.Size = New Size(width, height)
         Me.ctrlToModel(Me.selectedControl).Size = Me.selectedControl.Size
+    End Sub
+
+    Private Sub DeleteComponent()
+
+        Dim res = MessageBox.Show("Are you sure you want to delete this component?", "Delete Component", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
+
+        If res <> DialogResult.Yes Then Return
+
+        Dim ctrl = Me.selectedControl
+
+        Me.preview.ComponentsPanel.Controls.Remove(ctrl)
+        Me.ctrlToModel.Remove(ctrl)
+
+        ctrl.Dispose()
     End Sub
 #End Region
 

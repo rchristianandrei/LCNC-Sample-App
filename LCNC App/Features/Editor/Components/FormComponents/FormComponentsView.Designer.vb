@@ -48,6 +48,8 @@ Partial Class FormComponentsView
         Dim CustomizableEdges26 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim CustomizableEdges23 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim CustomizableEdges24 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges27 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges28 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         grpSize = New GroupBox()
         pnlHeight = New Guna.UI2.WinForms.Guna2Panel()
         txtHeight = New Guna.UI2.WinForms.Guna2TextBox()
@@ -70,6 +72,7 @@ Partial Class FormComponentsView
         lblHeader = New Guna.UI2.WinForms.Guna2HtmlLabel()
         pnlContainer = New Guna.UI2.WinForms.Guna2Panel()
         pnlSpecialized = New Guna.UI2.WinForms.Guna2Panel()
+        btnDelete = New Guna.UI2.WinForms.Guna2Button()
         grpSize.SuspendLayout()
         pnlHeight.SuspendLayout()
         pnlWidth.SuspendLayout()
@@ -412,7 +415,7 @@ Partial Class FormComponentsView
         pnlContainer.Location = New Point(6, 36)
         pnlContainer.Name = "pnlContainer"
         pnlContainer.ShadowDecoration.CustomizableEdges = CustomizableEdges26
-        pnlContainer.Size = New Size(156, 439)
+        pnlContainer.Size = New Size(156, 406)
         pnlContainer.TabIndex = 6
         ' 
         ' pnlSpecialized
@@ -426,10 +429,30 @@ Partial Class FormComponentsView
         pnlSpecialized.Size = New Size(156, 78)
         pnlSpecialized.TabIndex = 5
         ' 
+        ' btnDelete
+        ' 
+        btnDelete.Anchor = AnchorStyles.Bottom
+        btnDelete.BorderRadius = 6
+        btnDelete.CustomizableEdges = CustomizableEdges27
+        btnDelete.DisabledState.BorderColor = Color.DarkGray
+        btnDelete.DisabledState.CustomBorderColor = Color.DarkGray
+        btnDelete.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
+        btnDelete.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
+        btnDelete.FillColor = Color.FromArgb(CByte(192), CByte(0), CByte(0))
+        btnDelete.Font = New Font("Segoe UI", 9F)
+        btnDelete.ForeColor = Color.White
+        btnDelete.Location = New Point(19, 448)
+        btnDelete.Name = "btnDelete"
+        btnDelete.ShadowDecoration.CustomizableEdges = CustomizableEdges28
+        btnDelete.Size = New Size(131, 27)
+        btnDelete.TabIndex = 7
+        btnDelete.Text = "Delete Component"
+        ' 
         ' FormComponentsView
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
+        Controls.Add(btnDelete)
         Controls.Add(pnlContainer)
         Controls.Add(lblHeader)
         Name = "FormComponentsView"
@@ -478,5 +501,6 @@ Partial Class FormComponentsView
     Private WithEvents lblHeader As Guna.UI2.WinForms.Guna2HtmlLabel
     Friend WithEvents pnlContainer As Guna.UI2.WinForms.Guna2Panel
     Friend WithEvents pnlSpecialized As Guna.UI2.WinForms.Guna2Panel
+    Private WithEvents btnDelete As Guna.UI2.WinForms.Guna2Button
 
 End Class

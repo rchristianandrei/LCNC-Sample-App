@@ -77,6 +77,7 @@ Public Class FormComponentsView
     Public Event CompLocationChanged()
     Public Event CompBringToFront()
     Public Event CompSizeChanged()
+    Public Event DeleteComponent()
 #End Region
 
 #Region "Event Handlers"
@@ -118,6 +119,10 @@ Public Class FormComponentsView
         If Me.FindForm() Is Nothing Then Return
 
         RaiseEvent CompSizeChanged()
+    End Sub
+
+    Private Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btnDelete.Click
+        RaiseEvent DeleteComponent()
     End Sub
 #End Region
 End Class
