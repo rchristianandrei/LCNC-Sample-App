@@ -1,4 +1,5 @@
 ﻿Imports Microsoft.Extensions.DependencyInjection
+Imports MongoDB.Bson
 
 Public Class EditorPresenter
     Implements IFeature
@@ -14,14 +15,16 @@ Public Class EditorPresenter
     Private ReadOnly formsRepo As IFormsRepo
 
     ' Placeholders
-    Private previewOpened = False
-
-    Private formModel As New FormModel With {
+    Private ReadOnly defaultModel As New FormModel With {
         .FormText = Me.preview.Text,
         .FormWidth = Me.preview.Width,
         .FormHeight = Me.preview.Height,
         .SubmitText = Me.preview.SubmitButton.Text
     }
+
+    Private previewOpened = False
+    Private formModel = Me.CreateDefaultModel
+
     Private ReadOnly defaultInspector As IInspector = Me.formSettings
     Private selectedInspector As IInspector = Me.formSettings
 
@@ -65,6 +68,7 @@ Public Class EditorPresenter
         AddHandler Me._view.LoadForm, AddressOf Me.LoadForm
         AddHandler Me._view.Preview, AddressOf Me.OpenPreview
         AddHandler Me._view.Save, AddressOf Me.SaveForm
+        AddHandler Me._view.DeleteForm, AddressOf Me.DeleteForm
 
         AddHandler Me._view.AddTextbox, Sub() Me.formComponents.AddComponent(FormComponentType.Textbox)
         AddHandler Me._view.AddDropdownbox, Sub() Me.formComponents.AddComponent(FormComponentType.Dropdownbox)
@@ -108,16 +112,7 @@ Public Class EditorPresenter
 
         If res <> DialogResult.Yes Then Return
 
-        Me.formModel = New FormModel With {
-            .FormText = Me.preview.Text,
-            .FormWidth = Me.preview.Width,
-            .FormHeight = Me.preview.Height,
-            .SubmitText = Me.preview.SubmitButton.Text
-        }
-
-        Me.SetModel(Me.formModel)
-
-        Me.ShowDefaultInspector()
+        Me.SetFormToDefault()
     End Sub
 
     Private Sub LoadForm()
@@ -142,6 +137,9 @@ Public Class EditorPresenter
     End Sub
 
     Private Async Sub SaveForm()
+        Dim res = MessageBox.Show("Are you sure you want to Save this Form?", "Save Form", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+        If res <> DialogResult.Yes Then Return
+
         Me.formModel.Components = Me.formComponents.ComponentModels
 
         Try
@@ -150,9 +148,37 @@ Public Class EditorPresenter
             MsgBox(ex.Message)
         End Try
     End Sub
+
+    Private Async Sub DeleteForm()
+        If Me.formModel.Id = ObjectId.Empty Then
+            MessageBox.Show("This form is yet to be saved. Unable to delete this form.", "Delete Form", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Return
+        End If
+
+        Dim res = MessageBox.Show("Are you sure you want to Delete this Form?", "Delete Form", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
+        If res <> DialogResult.Yes Then Return
+
+        Dim input = InputBox($"Please type '{Me.formModel.FormText}' to proceed", "Delete Form")
+        If input <> Me.formModel.FormText Then Return
+
+        Try
+            Await Me.formsRepo.Delete(Me.formModel.Id)
+
+            Me.SetFormToDefault()
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+    End Sub
 #End Region
 
 #Region "Utilities Methods"
+    Public Sub SetFormToDefault()
+        Me.formModel = Me.CreateDefaultModel
+
+        Me.SetModel(Me.formModel)
+        Me.ShowDefaultInspector()
+    End Sub
+
     Public Sub ShowDefaultInspector()
         Me.selectedInspector?.Show(False)
         Me.selectedInspector = Me.defaultInspector
@@ -163,5 +189,14 @@ Public Class EditorPresenter
         Me.formSettings.SetModel(formModel)
         Me.formComponents.SetComponents(formModel.Components)
     End Sub
+
+    Public Function CreateDefaultModel()
+        Return New FormModel With {
+            .FormText = Me.defaultModel.FormText,
+            .FormWidth = Me.defaultModel.FormWidth,
+            .FormHeight = Me.defaultModel.FormHeight,
+            .SubmitText = Me.defaultModel.SubmitText
+        }
+    End Function
 #End Region
 End Class
