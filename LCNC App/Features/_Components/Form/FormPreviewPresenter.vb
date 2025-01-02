@@ -11,7 +11,10 @@
     End Sub
 
 #Region "Properties"
-    Public ReadOnly Property View As New FormView
+    Public ReadOnly Property View As New FormView With {
+        .FormBorderStyle = FormBorderStyle.FixedSingle,
+        .MaximizeBox = False
+    }
 #End Region
 
 #Region "Public Methods"
