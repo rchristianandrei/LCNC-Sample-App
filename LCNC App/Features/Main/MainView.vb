@@ -11,13 +11,13 @@ Public Class MainView
 #End Region
 
 #Region "Events"
-    Public Event ClickOpen()
+    Public Event OpenForm()
     Public Event ClickEditor()
 #End Region
 
 #Region "Event Handlers"
-    Private Sub smiOpen_Click(sender As Object, e As EventArgs) Handles smiOpen.Click
-        RaiseEvent ClickOpen()
+    Private Sub smiForm_Click(sender As Object, e As EventArgs) Handles smiForm.Click
+        RaiseEvent OpenForm()
     End Sub
 
     Private Sub smiEditor_Click(sender As Object, e As EventArgs) Handles smiEditor.Click

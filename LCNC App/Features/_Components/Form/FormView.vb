@@ -26,11 +26,22 @@ Public Class FormView
 
 #Region "Events"
     Public Event FormInteract()
+
+    Public Event StartForm()
+    Public Event SubmitForm()
 #End Region
 
 #Region "Event Handlers"
-    Private Sub FormInteract_Click(sender As Object, e As EventArgs) Handles pnlComponents.Click, btnSubmit.Click
+    Private Sub FormInteract_Click(sender As Object, e As EventArgs) Handles pnlComponents.Click, btnSubmit.Click, btnStart.Click, Me.Click
         RaiseEvent FormInteract()
+    End Sub
+
+    Private Sub btnStart_Click(sender As Object, e As EventArgs) Handles btnStart.Click
+        RaiseEvent StartForm()
+    End Sub
+
+    Private Sub btnSubmit_Click(sender As Object, e As EventArgs) Handles btnSubmit.Click
+        RaiseEvent SubmitForm()
     End Sub
 #End Region
 End Class

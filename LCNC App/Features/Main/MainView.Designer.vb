@@ -29,6 +29,7 @@ Partial Class MainView
         smiEditor = New ToolStripMenuItem()
         pnlFeature = New Guna.UI2.WinForms.Guna2Panel()
         sepTop = New Guna.UI2.WinForms.Guna2Separator()
+        smiForm = New ToolStripMenuItem()
         mnsMenu.SuspendLayout()
         SuspendLayout()
         ' 
@@ -43,6 +44,7 @@ Partial Class MainView
         ' 
         ' smiOpen
         ' 
+        smiOpen.DropDownItems.AddRange(New ToolStripItem() {smiForm})
         smiOpen.Name = "smiOpen"
         smiOpen.Size = New Size(48, 20)
         smiOpen.Text = "Open"
@@ -72,6 +74,12 @@ Partial Class MainView
         sepTop.Size = New Size(680, 1)
         sepTop.TabIndex = 7
         ' 
+        ' smiForm
+        ' 
+        smiForm.Name = "smiForm"
+        smiForm.Size = New Size(180, 22)
+        smiForm.Text = "Form"
+        ' 
         ' MainView
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
@@ -95,5 +103,6 @@ Partial Class MainView
     Private WithEvents smiOpen As ToolStripMenuItem
     Private WithEvents smiEditor As ToolStripMenuItem
     Friend WithEvents sepTop As Guna.UI2.WinForms.Guna2Separator
+    Friend WithEvents smiForm As ToolStripMenuItem
 
 End Class
