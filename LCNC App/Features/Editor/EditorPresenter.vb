@@ -7,7 +7,7 @@ Public Class EditorPresenter
     Implements IFeature
 
     Private ReadOnly _view As New EditorView
-    Private ReadOnly preview As New FormView
+    Private preview As FormView
 
     Private ReadOnly formSettings As New FormSettingsPresenter(Me.preview)
     Private formComponents As FormComponentsPresenter
@@ -16,18 +16,13 @@ Public Class EditorPresenter
     Private ReadOnly serviceProvider As IServiceProvider
     Private ReadOnly formsRepo As IFormsRepo
 
+    ' Observables
+    Private ReadOnly previewObservable As New BehaviorSubject(Of FormView)(Nothing)
+    Private ReadOnly formObservable As New BehaviorSubject(Of FormModel)(Nothing)
+
     ' Placeholders
-    Private ReadOnly defaultModel As New FormModel With {
-        .FormText = Me.preview.Text,
-        .FormWidth = Me.preview.Width,
-        .FormHeight = Me.preview.Height,
-        .SubmitText = Me.preview.SubmitButton.Text
-    }
-
-    Private formObservable As New BehaviorSubject(Of FormModel)(Nothing)
-
     Private previewOpened = False
-    Private formModel = Me.CreateDefaultModel
+    Private formModel As FormModel
 
     Private ReadOnly defaultInspector As IInspector = Me.formSettings
     Private selectedInspector As IInspector = Me.formSettings
@@ -36,6 +31,10 @@ Public Class EditorPresenter
         Me.serviceProvider = serviceProvider
         Me.formsRepo = formsRepo
 
+        Me.PreparePreview()
+        Me.previewObservable.OnNext(Me.preview)
+
+        Me.formModel = Me.CreateDefaultModel
         Me.formObservable.onnext(Me.formModel)
 
         Me.PrepareFeature()
@@ -44,25 +43,16 @@ Public Class EditorPresenter
 
     Private Sub PrepareFeature()
         ' Prepare Settings View
-        Me.formSettings.Initialize(Me.formObservable)
+        Me.formSettings.Initialize(Me.previewObservable, Me.formObservable)
         Me.formSettings.View.Dock = DockStyle.Fill
         Me._view.PanelRight.Controls.Add(Me.formSettings.View)
 
         ' Prepare Components View
         Me.formComponents = New FormComponentsPresenter(Me.serviceProvider)
-        Me.formComponents.Initialize(Me.preview, Me.formObservable)
+        Me.formComponents.Initialize(Me.previewObservable, Me.formObservable)
         Me.formComponents.View.Visible = False
         Me.formComponents.View.Dock = DockStyle.Fill
         Me._view.PanelRight.Controls.Add(Me.formComponents.View)
-
-        ' Prepare Preview
-        Me.preview.ControlBox = False
-        Me.preview.TopLevel = False
-        Dim x = (Me._view.PanelPreview.Width - Me.preview.Width) / 2
-        Dim y = (Me._view.PanelPreview.Height - Me.preview.Height) / 2
-        Me.preview.Location = New Point(x, y)
-        Me._view.PanelPreview.Controls.Add(Me.preview)
-        Me.preview.Show()
     End Sub
 
     Private Sub PrepareEventHandlers()
@@ -176,26 +166,47 @@ Public Class EditorPresenter
 #End Region
 
 #Region "Utilities Methods"
-    Public Sub SetFormToDefault()
+    Private Sub SetFormToDefault()
+        ' Renew Preview
+        Me.PreparePreview()
+
         Me.formModel = Me.CreateDefaultModel
 
         Me.formObservable.OnNext(Me.formModel)
+        Me.previewObservable.OnNext(Me.preview)
 
         Me.ShowDefaultInspector()
     End Sub
 
-    Public Sub ShowDefaultInspector()
+    Private Sub PreparePreview()
+        If Me.preview IsNot Nothing Then
+            Me._view.PanelPreview.Controls.Remove(Me.preview)
+            Me.preview.Dispose()
+        End If
+
+        Me.preview = New FormView With {
+            .ControlBox = False,
+            .TopLevel = False
+        }
+        Dim x = (Me._view.PanelPreview.Width - Me.preview.Width) / 2
+        Dim y = (Me._view.PanelPreview.Height - Me.preview.Height) / 2
+        Me.preview.Location = New Point(x, y)
+        Me._view.PanelPreview.Controls.Add(Me.preview)
+        Me.preview.Show()
+    End Sub
+
+    Private Sub ShowDefaultInspector()
         Me.selectedInspector?.Show(False)
         Me.selectedInspector = Me.defaultInspector
         Me.selectedInspector.Show(True)
     End Sub
 
-    Public Function CreateDefaultModel()
+    Private Function CreateDefaultModel() As FormModel
         Return New FormModel With {
-            .FormText = Me.defaultModel.FormText,
-            .FormWidth = Me.defaultModel.FormWidth,
-            .FormHeight = Me.defaultModel.FormHeight,
-            .SubmitText = Me.defaultModel.SubmitText
+            .FormText = Me.preview.Text,
+            .FormWidth = Me.preview.Width,
+            .FormHeight = Me.preview.Height,
+            .SubmitText = Me.preview.SubmitButton.Text
         }
     End Function
 #End Region

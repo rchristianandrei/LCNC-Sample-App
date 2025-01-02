@@ -61,8 +61,12 @@ Public Class FormComponentsPresenter
 #End Region
 
 #Region "Public Methods"
-    Public Sub Initialize(preview As FormView, formObservable As IObservable(Of FormModel))
-        Me.preview = preview
+    Public Sub Initialize(previewObservable As IObservable(Of FormView), formObservable As IObservable(Of FormModel))
+
+        previewObservable.Subscribe(
+            Sub(preview)
+                Me.preview = preview
+            End Sub)
 
         formObservable.Subscribe(
             Sub(formModel)

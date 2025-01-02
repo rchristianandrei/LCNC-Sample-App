@@ -1,7 +1,7 @@
 ﻿Public Class FormSettingsPresenter
     Implements IInspector
 
-    Private ReadOnly preview As FormView
+    Private preview As FormView
 
     Private model As FormModel
 
@@ -12,9 +12,6 @@
     End Sub
 
     Private Sub PrepareEventHandlers()
-        AddHandler Me.preview.FormInteract, Sub() RaiseEvent ShowFormInspector()
-        AddHandler Me.preview.SizeChanged, AddressOf Me.PreviewSizeChanged
-
         AddHandler Me.View.FormTextChanged, AddressOf Me.FormTextChanged
         AddHandler Me.View.FormWidthChanged, AddressOf Me.FormWidthChanged
         AddHandler Me.View.FormHeightChanged, AddressOf Me.FormHeightChanged
@@ -31,18 +28,18 @@
 #End Region
 
 #Region "Public Methods"
-    Public Sub Initialize(formObservable As IObservable(Of FormModel))
+    Public Sub Initialize(previewObservable As IObservable(Of FormView), formObservable As IObservable(Of FormModel))
+        previewObservable.Subscribe(
+            Sub(preview)
+                Me.preview = preview
+                PreparePreviewEventHandlers()
+            End Sub)
+
         formObservable.Subscribe(AddressOf Me.SetModel)
     End Sub
 
     Public Sub Show(visible As Boolean) Implements IInspector.Show
         Me.View.Visible = visible
-    End Sub
-
-    Public Sub SetModel(formModel As FormModel)
-        Me.Model = formModel
-
-        Me.ShowSettings()
     End Sub
 #End Region
 
@@ -95,6 +92,17 @@
 #End Region
 
 #Region "Utilities"
+    Private Sub PreparePreviewEventHandlers()
+        AddHandler Me.preview.FormInteract, Sub() RaiseEvent ShowFormInspector()
+        AddHandler Me.preview.SizeChanged, AddressOf Me.PreviewSizeChanged
+    End Sub
+
+    Private Sub SetModel(formModel As FormModel)
+        Me.model = formModel
+
+        Me.ShowSettings()
+    End Sub
+
     Private Sub ShowSettings()
         Me.preview.Text = Me.model.FormText
         Me.preview.Width = Me.model.FormWidth
