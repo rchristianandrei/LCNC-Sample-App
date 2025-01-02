@@ -1,4 +1,6 @@
-﻿Imports Microsoft.Extensions.DependencyInjection
+﻿Imports System.Reactive.Linq
+Imports System.Reactive.Subjects
+Imports Microsoft.Extensions.DependencyInjection
 Imports MongoDB.Bson
 
 Public Class EditorPresenter
@@ -22,6 +24,8 @@ Public Class EditorPresenter
         .SubmitText = Me.preview.SubmitButton.Text
     }
 
+    Private formObservable As New BehaviorSubject(Of FormModel)(Nothing)
+
     Private previewOpened = False
     Private formModel = Me.CreateDefaultModel
 
@@ -32,18 +36,21 @@ Public Class EditorPresenter
         Me.serviceProvider = serviceProvider
         Me.formsRepo = formsRepo
 
+        Me.formObservable.onnext(Me.formModel)
+
         Me.PrepareFeature()
         Me.PrepareEventHandlers()
     End Sub
 
     Private Sub PrepareFeature()
         ' Prepare Settings View
+        Me.formSettings.Initialize(Me.formObservable)
         Me.formSettings.View.Dock = DockStyle.Fill
-        Me.formSettings.SetModel(Me.formModel)
         Me._view.PanelRight.Controls.Add(Me.formSettings.View)
 
         ' Prepare Components View
-        Me.formComponents = New FormComponentsPresenter(Me.preview, Me.serviceProvider)
+        Me.formComponents = New FormComponentsPresenter(Me.serviceProvider)
+        Me.formComponents.Initialize(Me.preview, Me.formObservable)
         Me.formComponents.View.Visible = False
         Me.formComponents.View.Dock = DockStyle.Fill
         Me._view.PanelRight.Controls.Add(Me.formComponents.View)
@@ -122,8 +129,7 @@ Public Class EditorPresenter
         If result <> DialogResult.Yes Then Return
 
         Me.formModel = loadPresenter.FormModel
-
-        Me.SetModel(Me.formModel)
+        Me.formObservable.OnNext(Me.formModel)
     End Sub
 
     Private Sub OpenPreview()
@@ -139,8 +145,6 @@ Public Class EditorPresenter
     Private Async Sub SaveForm()
         Dim res = MessageBox.Show("Are you sure you want to Save this Form?", "Save Form", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
         If res <> DialogResult.Yes Then Return
-
-        Me.formModel.Components = Me.formComponents.ComponentModels
 
         Try
             Await Me.formsRepo.Save(Me.formModel)
@@ -175,7 +179,8 @@ Public Class EditorPresenter
     Public Sub SetFormToDefault()
         Me.formModel = Me.CreateDefaultModel
 
-        Me.SetModel(Me.formModel)
+        Me.formObservable.OnNext(Me.formModel)
+
         Me.ShowDefaultInspector()
     End Sub
 
@@ -183,11 +188,6 @@ Public Class EditorPresenter
         Me.selectedInspector?.Show(False)
         Me.selectedInspector = Me.defaultInspector
         Me.selectedInspector.Show(True)
-    End Sub
-
-    Public Sub SetModel(formModel As FormModel)
-        Me.formSettings.SetModel(formModel)
-        Me.formComponents.SetComponents(formModel.Components)
     End Sub
 
     Public Function CreateDefaultModel()

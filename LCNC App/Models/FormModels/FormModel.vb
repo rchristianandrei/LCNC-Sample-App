@@ -11,7 +11,7 @@ Public Class FormModel
 
     Public Property SubmitText As String
 
-    Public Property Components As IEnumerable(Of FormComponentModel)
+    Public Property Components As List(Of FormComponentModel)
 
     Public Overrides Function ToString() As String
         Return FormText

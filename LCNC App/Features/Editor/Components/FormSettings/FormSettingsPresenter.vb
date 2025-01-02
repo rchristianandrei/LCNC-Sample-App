@@ -31,6 +31,10 @@
 #End Region
 
 #Region "Public Methods"
+    Public Sub Initialize(formObservable As IObservable(Of FormModel))
+        formObservable.Subscribe(AddressOf Me.SetModel)
+    End Sub
+
     Public Sub Show(visible As Boolean) Implements IInspector.Show
         Me.View.Visible = visible
     End Sub

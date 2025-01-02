@@ -6,23 +6,24 @@ Public Class FormComponentsPresenter
 
     Private ReadOnly OrigColor = Color.FromArgb(240, 240, 240)
 
-    Private ReadOnly preview As FormView
+    Private preview As FormView
 
+    ' Services
     Private ReadOnly factoryComp As IFormControlFactory
     Private ReadOnly factoryModel As IFormComponentModelFactory
 
+    ' Presenter Components
     Private ReadOnly presenters As New Dictionary(Of Type, ISpecialized) From {
         {GetType(FormTextbox), New FormComponentsTextboxPresenter},
         {GetType(FormDropdownbox), New FormComponentsDropdownboxPresenter}
     }
     Private selectedSpecialized As ISpecialized
 
+    Private formModel As FormModel
     Private ctrlToModel As New Dictionary(Of FormControlComponent, FormComponentModel)
     Private selectedControl As FormControlComponent
 
-    Public Sub New(preview As FormView, serviceProvider As IServiceProvider)
-        Me.preview = preview
-
+    Public Sub New(serviceProvider As IServiceProvider)
         Me.factoryComp = serviceProvider.GetService(Of IFormControlFactory)
         Me.factoryModel = serviceProvider.GetService(Of IFormComponentModelFactory)
 
@@ -60,6 +61,15 @@ Public Class FormComponentsPresenter
 #End Region
 
 #Region "Public Methods"
+    Public Sub Initialize(preview As FormView, formObservable As IObservable(Of FormModel))
+        Me.preview = preview
+
+        formObservable.Subscribe(
+            Sub(formModel)
+                Me.SetComponents(formModel)
+            End Sub)
+    End Sub
+
     Public Sub AddComponent(type As FormComponentType)
         Dim model = Me.factoryModel.CreateComponent(type)
         Dim control = Me.factoryComp.CreateComponent(type)
@@ -72,6 +82,7 @@ Public Class FormComponentsPresenter
         AddHandler control.Click, AddressOf ClickComponent
         Me.preview.ComponentsPanel.Controls.Add(control)
 
+        Me.formModel.Components.Add(model)
         Me.ctrlToModel.Add(control, model)
     End Sub
 
@@ -84,23 +95,6 @@ Public Class FormComponentsPresenter
         Me.selectedControl.BackColor = Me.OrigColor
         Me.SubscribeDragFeature(Me.selectedControl, False)
         Me.selectedControl = Nothing
-    End Sub
-
-    Public Sub SetComponents(list As IEnumerable(Of FormComponentModel))
-        Me.ctrlToModel.Clear()
-        Me.preview.ComponentsPanel.Controls.Clear()
-
-        If list Is Nothing Then Return
-
-        For Each model In list
-            Dim control = Me.factoryComp.CreateFromModel(model)
-            control.Active = False
-
-            AddHandler control.Click, AddressOf ClickComponent
-
-            Me.ctrlToModel.Add(control, model)
-            Me.preview.ComponentsPanel.Controls.Add(control)
-        Next
     End Sub
 #End Region
 
@@ -141,12 +135,12 @@ Public Class FormComponentsPresenter
     Private Sub CompBringToFront()
         Me.preview.ComponentsPanel.Controls.SetChildIndex(Me.selectedControl, 0)
 
+        ' Remove
+        Dim model = Me.ctrlToModel(Me.selectedControl)
+        Me.formModel.Components.Remove(model)
+
         ' Rearrange
-        Dim temp As New Dictionary(Of FormControlComponent, FormComponentModel)
-        For Each ctrl As FormControlComponent In Me.preview.ComponentsPanel.Controls
-            temp.Add(ctrl, Me.ctrlToModel(ctrl))
-        Next
-        Me.ctrlToModel = temp
+        Me.formModel.Components.Insert(0, model)
     End Sub
 
     Private Sub CompSizeChanged()
@@ -184,6 +178,7 @@ Public Class FormComponentsPresenter
         Dim ctrl = Me.selectedControl
 
         Me.preview.ComponentsPanel.Controls.Remove(ctrl)
+        Me.formModel.Components.Remove(Me.ctrlToModel(ctrl))
         Me.ctrlToModel.Remove(ctrl)
 
         ctrl.Dispose()
@@ -285,6 +280,26 @@ Public Class FormComponentsPresenter
 #End Region
 
 #Region "Utilities"
+    Private Sub SetComponents(formModel As FormModel)
+        Me.formModel = formModel
+        Me.ctrlToModel.Clear()
+        Me.preview.ComponentsPanel.Controls.Clear()
+
+        If Me.formModel.Components Is Nothing Then
+            Me.formModel.Components = New List(Of FormComponentModel)
+        End If
+
+        For Each model In Me.formModel.Components
+            Dim control = Me.factoryComp.CreateFromModel(model)
+            control.Active = False
+
+            AddHandler control.Click, AddressOf ClickComponent
+
+            Me.ctrlToModel.Add(control, model)
+            Me.preview.ComponentsPanel.Controls.Add(control)
+        Next
+    End Sub
+
     ''' <summary>
     ''' Shows the Location X & Y of the control in View
     ''' </summary>
