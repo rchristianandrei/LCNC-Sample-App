@@ -22,6 +22,7 @@ Partial Class FormView
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        components = New ComponentModel.Container()
         Dim CustomizableEdges1 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim CustomizableEdges2 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim CustomizableEdges3 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
@@ -31,6 +32,7 @@ Partial Class FormView
         btnSubmit = New Guna.UI2.WinForms.Guna2Button()
         pnlComponents = New Guna.UI2.WinForms.Guna2Panel()
         btnStart = New Guna.UI2.WinForms.Guna2Button()
+        tmr1s = New Timer(components)
         SuspendLayout()
         ' 
         ' btnSubmit
@@ -68,8 +70,8 @@ Partial Class FormView
         btnStart.CustomizableEdges = CustomizableEdges5
         btnStart.DisabledState.BorderColor = Color.DarkGray
         btnStart.DisabledState.CustomBorderColor = Color.DarkGray
-        btnStart.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
-        btnStart.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
+        btnStart.DisabledState.FillColor = Color.Green
+        btnStart.DisabledState.ForeColor = Color.White
         btnStart.Font = New Font("Segoe UI", 9F)
         btnStart.ForeColor = Color.White
         btnStart.Location = New Point(12, 12)
@@ -78,6 +80,10 @@ Partial Class FormView
         btnStart.Size = New Size(439, 34)
         btnStart.TabIndex = 3
         btnStart.Text = "Start"
+        ' 
+        ' tmr1s
+        ' 
+        tmr1s.Interval = 1000
         ' 
         ' FormView
         ' 
@@ -96,4 +102,5 @@ Partial Class FormView
     Private WithEvents btnSubmit As Guna.UI2.WinForms.Guna2Button
     Friend WithEvents pnlComponents As Guna.UI2.WinForms.Guna2Panel
     Private WithEvents btnStart As Guna.UI2.WinForms.Guna2Button
+    Private WithEvents tmr1s As Timer
 End Class

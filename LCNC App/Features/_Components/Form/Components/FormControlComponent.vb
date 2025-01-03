@@ -22,4 +22,13 @@
             Throw New NotImplementedException
         End Get
     End Property
+
+    Public Overridable Property TextValue() As String
+        Get
+            Throw New NotImplementedException
+        End Get
+        Set(ByVal value As String)
+            Throw New NotImplementedException
+        End Set
+    End Property
 End Class

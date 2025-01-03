@@ -32,5 +32,19 @@ Public Class FormDropdownbox
             Return Me.cboCombobox
         End Get
     End Property
+
+    Public Overrides Property TextValue() As String
+        Get
+            Return Me.cboCombobox.Text
+        End Get
+        Set(ByVal value As String)
+            If value Is String.Empty Then
+                Me.cboCombobox.SelectedIndex = -1
+            Else
+                Me.cboCombobox.Text = value
+            End If
+
+        End Set
+    End Property
 #End Region
 End Class

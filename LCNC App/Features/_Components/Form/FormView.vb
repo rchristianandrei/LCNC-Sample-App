@@ -22,6 +22,12 @@ Public Class FormView
             Return Me.pnlComponents
         End Get
     End Property
+
+    Public ReadOnly Property Timer1s() As Timer
+        Get
+            Return Me.tmr1s
+        End Get
+    End Property
 #End Region
 
 #Region "Events"

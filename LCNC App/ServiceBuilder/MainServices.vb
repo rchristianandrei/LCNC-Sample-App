@@ -15,7 +15,9 @@ Module MainServices
         ' Register services
         serviceCollection.AddSingleton(Of IFormComponentModelFactory, FormComponentModelFactory)
         serviceCollection.AddSingleton(Of IFormControlFactory, FormControlFactory)
+
         serviceCollection.AddScoped(Of IFormsRepo, FormsRepo)(Function(provider) New FormsRepo(connectionString))
+        serviceCollection.AddScoped(Of ISubmittedDataRepo, SubmittedDataRepo)(Function(provider) New SubmittedDataRepo(connectionString))
 
         ' Feature Presenters
         serviceCollection.AddTransient(Of FormWorkingPresenter)

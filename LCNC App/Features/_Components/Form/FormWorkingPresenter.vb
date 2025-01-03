@@ -1,10 +1,15 @@
 ﻿Public Class FormWorkingPresenter
     Inherits FormPresenter
 
-    Public Sub New(factory As IFormControlFactory)
+    ' Services
+    Private ReadOnly submittedDataRepo As ISubmittedDataRepo
+
+    Public Sub New(factory As IFormControlFactory, submittedDataRepo As ISubmittedDataRepo)
         MyBase.New(factory)
 
-        Me.PrepareEventHandlers
+        Me.submittedDataRepo = submittedDataRepo
+
+        Me.PrepareEventHandlers()
     End Sub
 
     Private Sub PrepareEventHandlers()
@@ -15,32 +20,36 @@
 #Region "Public Methods"
     Public Overrides Sub Show(formModel As FormModel, owner As Form)
         MyBase.Show(formModel, owner)
-
-        Me.InActiveState()
     End Sub
 #End Region
 
 #Region "Event Handlers"
     Private Sub StartForm()
-        Me.ActiveState()
+        ' Record to Active Table
     End Sub
 
-    Private Sub SubmitForm()
-        Me.InActiveState()
+    Private Async Sub SubmitForm()
+        ' Record to Historical and Recent
+        Dim data As New Dictionary(Of String, String)
+        For Each ctrl In MyBase.ctrlToModel.Keys
+            data.Add(ctrl.Label, ctrl.TextValue)
+        Next
+
+        Dim model As New SubmittedDataModel With {
+            .FormName = MyBase.formModel.FormText,
+            .FormId = MyBase.formModel.Id,
+            .Data = data
+        }
+
+        Try
+            Await Me.submittedDataRepo.Insert(model)
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
     End Sub
 #End Region
 
 #Region "Utility Methods"
-    Private Sub InActiveState()
-        MyBase.View.StartButton.Enabled = True
-        MyBase.View.ComponentsPanel.Enabled = False
-        MyBase.View.SubmitButton.Enabled = False
-    End Sub
 
-    Private Sub ActiveState()
-        MyBase.View.StartButton.Enabled = False
-        MyBase.View.ComponentsPanel.Enabled = True
-        MyBase.View.SubmitButton.Enabled = True
-    End Sub
 #End Region
 End Class

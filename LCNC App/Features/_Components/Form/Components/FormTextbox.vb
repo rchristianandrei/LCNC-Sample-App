@@ -32,5 +32,14 @@ Public Class FormTextbox
             Return Me.txtTextbox
         End Get
     End Property
+
+    Public Overrides Property TextValue() As String
+        Get
+            Return Me.txtTextbox.Text
+        End Get
+        Set(ByVal value As String)
+            Me.txtTextbox.Text = value
+        End Set
+    End Property
 #End Region
 End Class
