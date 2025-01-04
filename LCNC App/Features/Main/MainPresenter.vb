@@ -22,6 +22,7 @@ Public Class MainPresenter
 
         AddHandler Me._view.OpenForm, AddressOf Me.OpenForm
         AddHandler Me._view.ClickEditor, AddressOf Me.OpenEditor
+        AddHandler Me._view.ClickReporting, AddressOf Me.OpenReporting
     End Sub
 
 #Region "Properties"
@@ -55,7 +56,18 @@ Public Class MainPresenter
     End Sub
 
     Private Sub OpenEditor()
-        Dim feature = Me.serviceProvider.GetService(Of EditorPresenter)()
+        Me.OpenFeature(GetType(EditorPresenter))
+    End Sub
+
+    Private Sub OpenReporting()
+        Me.OpenFeature(GetType(ReportingPresenter))
+    End Sub
+#End Region
+
+#Region "Utility Methods"
+    Private Sub OpenFeature(type As Type)
+        Dim feature As IFeature = Me.serviceProvider.GetService(type)
+
         feature.View.Dock = DockStyle.Fill
         Me._view.PanelFeature.Controls.Add(feature.View)
 

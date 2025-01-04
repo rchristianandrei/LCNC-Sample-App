@@ -22,20 +22,21 @@ Partial Class MainView
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim CustomizableEdges1 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
-        Dim CustomizableEdges2 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges3 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges4 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         mnsMenu = New MenuStrip()
         smiOpen = New ToolStripMenuItem()
+        smiForm = New ToolStripMenuItem()
         smiEditor = New ToolStripMenuItem()
         pnlFeature = New Guna.UI2.WinForms.Guna2Panel()
         sepTop = New Guna.UI2.WinForms.Guna2Separator()
-        smiForm = New ToolStripMenuItem()
+        smiReporting = New ToolStripMenuItem()
         mnsMenu.SuspendLayout()
         SuspendLayout()
         ' 
         ' mnsMenu
         ' 
-        mnsMenu.Items.AddRange(New ToolStripItem() {smiOpen, smiEditor})
+        mnsMenu.Items.AddRange(New ToolStripItem() {smiOpen, smiEditor, smiReporting})
         mnsMenu.Location = New Point(0, 0)
         mnsMenu.Name = "mnsMenu"
         mnsMenu.Size = New Size(680, 24)
@@ -49,6 +50,12 @@ Partial Class MainView
         smiOpen.Size = New Size(48, 20)
         smiOpen.Text = "Open"
         ' 
+        ' smiForm
+        ' 
+        smiForm.Name = "smiForm"
+        smiForm.Size = New Size(102, 22)
+        smiForm.Text = "Form"
+        ' 
         ' smiEditor
         ' 
         smiEditor.Name = "smiEditor"
@@ -57,11 +64,11 @@ Partial Class MainView
         ' 
         ' pnlFeature
         ' 
-        pnlFeature.CustomizableEdges = CustomizableEdges1
+        pnlFeature.CustomizableEdges = CustomizableEdges3
         pnlFeature.Dock = DockStyle.Fill
         pnlFeature.Location = New Point(0, 25)
         pnlFeature.Name = "pnlFeature"
-        pnlFeature.ShadowDecoration.CustomizableEdges = CustomizableEdges2
+        pnlFeature.ShadowDecoration.CustomizableEdges = CustomizableEdges4
         pnlFeature.Size = New Size(680, 425)
         pnlFeature.TabIndex = 1
         ' 
@@ -74,11 +81,11 @@ Partial Class MainView
         sepTop.Size = New Size(680, 1)
         sepTop.TabIndex = 7
         ' 
-        ' smiForm
+        ' smiReporting
         ' 
-        smiForm.Name = "smiForm"
-        smiForm.Size = New Size(180, 22)
-        smiForm.Text = "Form"
+        smiReporting.Name = "smiReporting"
+        smiReporting.Size = New Size(71, 20)
+        smiReporting.Text = "Reporting"
         ' 
         ' MainView
         ' 
@@ -104,5 +111,6 @@ Partial Class MainView
     Private WithEvents smiEditor As ToolStripMenuItem
     Friend WithEvents sepTop As Guna.UI2.WinForms.Guna2Separator
     Friend WithEvents smiForm As ToolStripMenuItem
+    Friend WithEvents smiReporting As ToolStripMenuItem
 
 End Class

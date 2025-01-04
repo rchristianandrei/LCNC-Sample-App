@@ -22,6 +22,9 @@ Module MainServices
         ' Feature Presenters
         serviceCollection.AddTransient(Of LoginPresenter)
 
+        serviceCollection.AddTransient(Of ReportingPresenter)
+        serviceCollection.AddTransient(Of ExportRawReportPresenter)
+
         serviceCollection.AddTransient(Of FormWorkingPresenter)
         serviceCollection.AddTransient(Of FormPreviewPresenter)
         serviceCollection.AddTransient(Of LoadFormPresenter)
