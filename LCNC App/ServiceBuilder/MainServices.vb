@@ -20,6 +20,8 @@ Module MainServices
         serviceCollection.AddScoped(Of ISubmittedDataRepo, SubmittedDataRepo)(Function(provider) New SubmittedDataRepo(connectionString))
 
         ' Feature Presenters
+        serviceCollection.AddTransient(Of LoginPresenter)
+
         serviceCollection.AddTransient(Of FormWorkingPresenter)
         serviceCollection.AddTransient(Of FormPreviewPresenter)
         serviceCollection.AddTransient(Of LoadFormPresenter)

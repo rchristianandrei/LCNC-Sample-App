@@ -40,7 +40,7 @@ Namespace My
             ' Get the service provider
             Dim serviceProvider = MainServices.GetServiceProvider()
 
-            Me.MainForm = serviceProvider.GetService(Of MainPresenter).View
+            Me.MainForm = serviceProvider.GetService(Of LoginPresenter).View
         End Sub
 
         <Global.System.Diagnostics.DebuggerStepThroughAttribute()>
