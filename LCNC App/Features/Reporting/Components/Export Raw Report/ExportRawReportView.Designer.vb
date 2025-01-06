@@ -27,14 +27,18 @@ Partial Class ExportRawReportView
         Dim DataGridViewCellStyle3 As DataGridViewCellStyle = New DataGridViewCellStyle()
         Dim CustomizableEdges1 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         Dim CustomizableEdges2 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges3 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
+        Dim CustomizableEdges4 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         grdData = New Guna.UI2.WinForms.Guna2DataGridView()
+        colId = New DataGridViewTextBoxColumn()
+        colFormID = New DataGridViewTextBoxColumn()
+        colFormName = New DataGridViewTextBoxColumn()
+        colDateTimeSubmitted = New DataGridViewTextBoxColumn()
         btnExport = New Guna.UI2.WinForms.Guna2Button()
         dtpForm = New DateTimePicker()
         dtpTo = New DateTimePicker()
         lblTo = New Guna.UI2.WinForms.Guna2HtmlLabel()
-        colForms = New DataGridViewTextBoxColumn()
-        colFormName = New DataGridViewTextBoxColumn()
-        colDateTimeSubmitted = New DataGridViewTextBoxColumn()
+        btnLoad = New Guna.UI2.WinForms.Guna2Button()
         CType(grdData, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
@@ -55,7 +59,8 @@ Partial Class ExportRawReportView
         DataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText
         DataGridViewCellStyle2.WrapMode = DataGridViewTriState.True
         grdData.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
-        grdData.Columns.AddRange(New DataGridViewColumn() {colForms, colFormName, colDateTimeSubmitted})
+        grdData.ColumnHeadersHeight = 35
+        grdData.Columns.AddRange(New DataGridViewColumn() {colId, colFormID, colFormName, colDateTimeSubmitted})
         DataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle3.BackColor = Color.White
         DataGridViewCellStyle3.Font = New Font("Segoe UI", 9F)
@@ -83,7 +88,7 @@ Partial Class ExportRawReportView
         grdData.ThemeStyle.HeaderStyle.Font = New Font("Segoe UI", 9F)
         grdData.ThemeStyle.HeaderStyle.ForeColor = Color.White
         grdData.ThemeStyle.HeaderStyle.HeaightSizeMode = DataGridViewColumnHeadersHeightSizeMode.DisableResizing
-        grdData.ThemeStyle.HeaderStyle.Height = 23
+        grdData.ThemeStyle.HeaderStyle.Height = 35
         grdData.ThemeStyle.ReadOnly = True
         grdData.ThemeStyle.RowsStyle.BackColor = Color.White
         grdData.ThemeStyle.RowsStyle.BorderStyle = DataGridViewCellBorderStyle.SingleHorizontal
@@ -92,6 +97,30 @@ Partial Class ExportRawReportView
         grdData.ThemeStyle.RowsStyle.Height = 25
         grdData.ThemeStyle.RowsStyle.SelectionBackColor = Color.FromArgb(CByte(231), CByte(229), CByte(255))
         grdData.ThemeStyle.RowsStyle.SelectionForeColor = Color.FromArgb(CByte(71), CByte(69), CByte(94))
+        ' 
+        ' colId
+        ' 
+        colId.HeaderText = "Id"
+        colId.Name = "colId"
+        colId.ReadOnly = True
+        ' 
+        ' colFormID
+        ' 
+        colFormID.HeaderText = "Form Id"
+        colFormID.Name = "colFormID"
+        colFormID.ReadOnly = True
+        ' 
+        ' colFormName
+        ' 
+        colFormName.HeaderText = "Form Name"
+        colFormName.Name = "colFormName"
+        colFormName.ReadOnly = True
+        ' 
+        ' colDateTimeSubmitted
+        ' 
+        colDateTimeSubmitted.HeaderText = "Date Time Submitted"
+        colDateTimeSubmitted.Name = "colDateTimeSubmitted"
+        colDateTimeSubmitted.ReadOnly = True
         ' 
         ' btnExport
         ' 
@@ -139,29 +168,29 @@ Partial Class ExportRawReportView
         lblTo.TabIndex = 8
         lblTo.Text = "-To-"
         ' 
-        ' colForms
+        ' btnLoad
         ' 
-        colForms.HeaderText = "Form Id"
-        colForms.Name = "colForms"
-        colForms.ReadOnly = True
-        ' 
-        ' colFormName
-        ' 
-        colFormName.HeaderText = "Form Name"
-        colFormName.Name = "colFormName"
-        colFormName.ReadOnly = True
-        ' 
-        ' colDateTimeSubmitted
-        ' 
-        colDateTimeSubmitted.HeaderText = "Date Time Submitted"
-        colDateTimeSubmitted.Name = "colDateTimeSubmitted"
-        colDateTimeSubmitted.ReadOnly = True
+        btnLoad.BorderRadius = 6
+        btnLoad.CustomizableEdges = CustomizableEdges3
+        btnLoad.DisabledState.BorderColor = Color.DarkGray
+        btnLoad.DisabledState.CustomBorderColor = Color.DarkGray
+        btnLoad.DisabledState.FillColor = Color.FromArgb(CByte(169), CByte(169), CByte(169))
+        btnLoad.DisabledState.ForeColor = Color.FromArgb(CByte(141), CByte(141), CByte(141))
+        btnLoad.Font = New Font("Segoe UI", 9F)
+        btnLoad.ForeColor = Color.White
+        btnLoad.Location = New Point(283, 12)
+        btnLoad.Name = "btnLoad"
+        btnLoad.ShadowDecoration.CustomizableEdges = CustomizableEdges4
+        btnLoad.Size = New Size(74, 27)
+        btnLoad.TabIndex = 9
+        btnLoad.Text = "Load"
         ' 
         ' ExportRawReportView
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(566, 326)
+        Controls.Add(btnLoad)
         Controls.Add(lblTo)
         Controls.Add(dtpTo)
         Controls.Add(dtpForm)
@@ -177,10 +206,12 @@ Partial Class ExportRawReportView
 
     Private WithEvents grdData As Guna.UI2.WinForms.Guna2DataGridView
     Private WithEvents btnExport As Guna.UI2.WinForms.Guna2Button
-    Friend WithEvents dtpForm As DateTimePicker
-    Friend WithEvents dtpTo As DateTimePicker
-    Friend WithEvents lblTo As Guna.UI2.WinForms.Guna2HtmlLabel
-    Friend WithEvents colForms As DataGridViewTextBoxColumn
-    Friend WithEvents colFormName As DataGridViewTextBoxColumn
-    Friend WithEvents colDateTimeSubmitted As DataGridViewTextBoxColumn
+    Private WithEvents btnLoad As Guna.UI2.WinForms.Guna2Button
+    Private WithEvents dtpForm As DateTimePicker
+    Private WithEvents dtpTo As DateTimePicker
+    Private WithEvents lblTo As Guna.UI2.WinForms.Guna2HtmlLabel
+    Private WithEvents colId As DataGridViewTextBoxColumn
+    Private WithEvents colFormID As DataGridViewTextBoxColumn
+    Private WithEvents colFormName As DataGridViewTextBoxColumn
+    Private WithEvents colDateTimeSubmitted As DataGridViewTextBoxColumn
 End Class
