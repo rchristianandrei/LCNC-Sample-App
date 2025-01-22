@@ -30,7 +30,8 @@ Public Class ReportingPresenter
     Private Sub PrepareKPIPresenters()
         Dim presenters As IRealtimeReportKpi() = {
             serviceProvider.GetService(Of RealtimeReportSubmittedCountPresenter),
-            serviceProvider.GetService(Of RealtimeReportAHTPresenter)
+            serviceProvider.GetService(Of RealtimeReportAHTPresenter),
+            serviceProvider.GetService(Of RealtimeReportResponseTimePresenter)
         }
 
         For Each kpi In presenters
