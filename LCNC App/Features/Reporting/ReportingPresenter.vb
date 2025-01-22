@@ -28,10 +28,15 @@ Public Class ReportingPresenter
     End Sub
 
     Private Sub PrepareKPIPresenters()
-        ' Submitted Count
-        Dim count = serviceProvider.GetService(Of RealtimeReportSubmittedCountPresenter)
-        kpiList.Add(count)
-        _view.KpiPanel.Controls.Add(count.View)
+        Dim presenters As IRealtimeReportKpi() = {
+            serviceProvider.GetService(Of RealtimeReportSubmittedCountPresenter),
+            serviceProvider.GetService(Of RealtimeReportAHTPresenter)
+        }
+
+        For Each kpi In presenters
+            kpiList.Add(kpi)
+            _view.KpiPanel.Controls.Add(kpi.View)
+        Next
     End Sub
 
     Private Sub PrepareEventHandlers()

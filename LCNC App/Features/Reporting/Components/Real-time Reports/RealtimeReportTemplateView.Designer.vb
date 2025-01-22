@@ -31,25 +31,26 @@ Partial Class RealtimeReportTemplateView
         lblCaption.Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Right
         lblCaption.AutoSize = False
         lblCaption.BackColor = Color.Transparent
-        lblCaption.Font = New Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        lblCaption.Location = New Point(23, 15)
+        lblCaption.Font = New Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblCaption.Location = New Point(37, 16)
         lblCaption.Name = "lblCaption"
-        lblCaption.Size = New Size(150, 22)
+        lblCaption.Size = New Size(124, 33)
         lblCaption.TabIndex = 0
         lblCaption.Text = "Caption"
-        lblCaption.TextAlignment = ContentAlignment.TopCenter
+        lblCaption.TextAlignment = ContentAlignment.MiddleCenter
         ' 
         ' lblValue
         ' 
+        lblValue.Anchor = AnchorStyles.Top Or AnchorStyles.Bottom Or AnchorStyles.Left Or AnchorStyles.Right
         lblValue.AutoSize = False
         lblValue.BackColor = Color.Transparent
         lblValue.Font = New Font("Segoe UI Semibold", 24F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        lblValue.Location = New Point(23, 43)
+        lblValue.Location = New Point(23, 62)
         lblValue.Name = "lblValue"
-        lblValue.Size = New Size(150, 59)
+        lblValue.Size = New Size(150, 46)
         lblValue.TabIndex = 1
         lblValue.Text = "0"
-        lblValue.TextAlignment = ContentAlignment.MiddleCenter
+        lblValue.TextAlignment = ContentAlignment.TopCenter
         ' 
         ' RealtimeReportTemplateView
         ' 

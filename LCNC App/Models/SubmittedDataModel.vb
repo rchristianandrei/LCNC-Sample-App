@@ -10,6 +10,8 @@ Public Class SubmittedDataModel
 
     Property FormName As String
 
+    Property HandlingTime As Integer
+
     ''' <summary>
     ''' Stores a Component and TextValue pair
     ''' </summary>

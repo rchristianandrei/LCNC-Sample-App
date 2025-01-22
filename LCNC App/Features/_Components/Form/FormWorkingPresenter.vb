@@ -14,7 +14,6 @@
 
     Private Sub PrepareEventHandlers()
         AddHandler MyBase.View.StartForm, AddressOf Me.StartForm
-        AddHandler MyBase.View.SubmitForm, AddressOf Me.SubmitForm
     End Sub
 
 #Region "Public Methods"
@@ -28,7 +27,8 @@
         ' Record to Active Table
     End Sub
 
-    Private Async Sub SubmitForm()
+    Protected Overrides Async Sub SubmitClick(sender As Object, e As EventArgs)
+
         ' Record to Historical and Recent
         Dim data As New Dictionary(Of String, String)
         For Each ctrl In MyBase.ctrlToModel.Keys
@@ -39,11 +39,14 @@
             .Username = Globals.CurrentUser.Username,
             .FormName = MyBase.formModel.FormText,
             .FormId = MyBase.formModel.Id,
+            .HandlingTime = stopWatch.Elapsed.Seconds,
             .Data = data
         }
 
         Try
             Await Me.submittedDataRepo.Insert(model)
+
+            MyBase.InActiveState()
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try

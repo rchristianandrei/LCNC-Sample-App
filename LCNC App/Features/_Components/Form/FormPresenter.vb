@@ -63,7 +63,7 @@
         End If
     End Sub
 
-    Private Sub SubmitClick(sender As Object, e As EventArgs)
+    Protected Overridable Sub SubmitClick(sender As Object, e As EventArgs)
         Me.InActiveState()
     End Sub
 #End Region

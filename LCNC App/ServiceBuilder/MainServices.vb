@@ -21,6 +21,7 @@ Module MainServices
 
         serviceCollection.AddScoped(Of ISubmittedDataRepo, SubmittedDataRepo)(Function(provider) New SubmittedDataRepo(connectionString))
         serviceCollection.AddScoped(Of IReportSubmittedCountRepo, ReportSubmittedCountRepo)(Function(provider) New ReportSubmittedCountRepo(connectionString))
+        serviceCollection.AddScoped(Of IReportAHTRepo, ReportAHTRepo)(Function(provider) New ReportAHTRepo(connectionString))
 
         ' Feature Presenters
         serviceCollection.AddTransient(Of LoginPresenter)
@@ -28,6 +29,7 @@ Module MainServices
 
         serviceCollection.AddTransient(Of ReportingPresenter)
         serviceCollection.AddTransient(Of RealtimeReportSubmittedCountPresenter)
+        serviceCollection.AddTransient(Of RealtimeReportAHTPresenter)
         serviceCollection.AddTransient(Of ExportRawReportPresenter)
 
         serviceCollection.AddTransient(Of FormWorkingPresenter)
