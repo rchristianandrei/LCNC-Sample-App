@@ -1,8 +1,7 @@
 ﻿Imports Microsoft.Extensions.DependencyInjection
 
-Public Class LoginPresenter
+Public Class RegisterPresenter
 
-    ' Services
     Private ReadOnly serviceProvider As IServiceProvider
     Private ReadOnly usersRepo As IUsersRepo
 
@@ -14,40 +13,40 @@ Public Class LoginPresenter
     End Sub
 
     Private Sub PrepareEventHandlers()
-        AddHandler Me.View.SignIn, AddressOf Me.SignIn
-        AddHandler Me.View.Register, AddressOf Me.Register
+        AddHandler Me.View.SignUp, AddressOf Me.SignUp
+        AddHandler Me.View.LogIn, AddressOf Me.LogIn
     End Sub
 
 #Region "Properties"
-    Public ReadOnly Property View As New LoginView
+    Public ReadOnly Property View As New RegisterView
 #End Region
 
 #Region "Event Handlers"
-    Private Async Sub SignIn()
-
+    Private Async Sub SignUp()
         Try
             Dim username = Me.View.Username
             Dim password = Me.View.Password
 
-            Dim user = Await Me.usersRepo.GetOne(username, password)
+            Dim available = Await Me.usersRepo.CheckUsernameAvailability(username)
 
-            If user Is Nothing Then
-                MsgBox("Invalid Credentials")
+            If Not available Then
+                MsgBox("Please pick another username")
                 Return
             End If
 
-            Globals.CurrentUser = user
+            Dim user As New UserModel With {.Username = username, .Password = password}
 
-            Me.serviceProvider.GetService(Of MainPresenter).View.Show()
-            Me.View.Close()
+            Await Me.usersRepo.Insert(user)
+
+            MsgBox("Successfully Registered!")
 
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
     End Sub
 
-    Private Sub Register()
-        Me.serviceProvider.GetService(Of RegisterPresenter).View.Show()
+    Private Sub LogIn()
+        Me.serviceProvider.GetService(Of LoginPresenter).View.Show()
         Me.View.Close()
     End Sub
 #End Region

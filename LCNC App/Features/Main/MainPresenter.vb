@@ -37,7 +37,17 @@ Public Class MainPresenter
 
 #Region "Event Handlers"
     Private Sub FormClosing(sender As Object, e As FormClosingEventArgs)
+        Dim res = MessageBox.Show("Are you sure you want to logout?", "Logut", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+
+        If res <> vbYes Then
+            e.Cancel = True
+            Return
+        End If
+
         Me.currentFeature?.View.Dispose()
+
+        Globals.CurrentUser = Nothing
+        Me.serviceProvider.GetService(Of LoginPresenter).View.Show()
     End Sub
 
     Private Sub OpenForm()

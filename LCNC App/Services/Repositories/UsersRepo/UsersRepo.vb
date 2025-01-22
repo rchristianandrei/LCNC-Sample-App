@@ -1,5 +1,4 @@
-﻿Imports System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel
-Imports MongoDB.Bson
+﻿Imports MongoDB.Bson
 Imports MongoDB.Driver
 
 Public Class UsersRepo
@@ -14,6 +13,7 @@ Public Class UsersRepo
     End Sub
 
     Public Async Function Insert(user As UserModel) As Task Implements IUsersRepo.Insert
+        user.Username = user.Username.ToLower()
         user.DateTime = BsonDateTime.Create(DateTime.UtcNow)
 
         Dim client As New MongoClient(New MongoUrl(Me.connString))
@@ -24,6 +24,20 @@ Public Class UsersRepo
         Await collection.InsertOneAsync(user)
     End Function
 
+    Public Async Function CheckUsernameAvailability(username As String) As Task(Of Boolean) Implements IUsersRepo.CheckUsernameAvailability
+        Dim client As New MongoClient(New MongoUrl(connString))
+
+        Dim database As IMongoDatabase = client.GetDatabase(dbName)
+        Dim collection As IMongoCollection(Of UserModel) = database.GetCollection(Of UserModel)(colName)
+
+        Dim filter As FilterDefinition(Of UserModel) = Builders(Of UserModel).Filter.And(
+            Builders(Of UserModel).Filter.Eq(Function(model) model.Username, username.ToLower())
+        )
+        Dim results = Await (Await collection.FindAsync(filter)).ToListAsync()
+
+        Return results.Count <= 0
+    End Function
+
     Public Async Function GetOne(username As String, password As String) As Task(Of UserModel) Implements IUsersRepo.GetOne
         Dim client As New MongoClient(New MongoUrl(connString))
 
@@ -31,7 +45,7 @@ Public Class UsersRepo
         Dim collection As IMongoCollection(Of UserModel) = database.GetCollection(Of UserModel)(colName)
 
         Dim filter As FilterDefinition(Of UserModel) = Builders(Of UserModel).Filter.And(
-            Builders(Of UserModel).Filter.Eq(Function(model) model.Username, username),
+            Builders(Of UserModel).Filter.Eq(Function(model) model.Username, username.ToLower()),
             Builders(Of UserModel).Filter.Gte(Function(model) model.Password, password)
         )
         Dim results = Await (Await collection.FindAsync(filter)).ToListAsync()
@@ -46,7 +60,7 @@ Public Class UsersRepo
         Dim collection As IMongoCollection(Of UserModel) = database.GetCollection(Of UserModel)(colName)
 
         Dim filter As FilterDefinition(Of UserModel) = Builders(Of UserModel).Filter.And(
-            Builders(Of UserModel).Filter.Eq(Function(model) model.Username, username)
+            Builders(Of UserModel).Filter.Eq(Function(model) model.Username, username.ToLower())
         )
         Dim results = Await collection.FindAsync(filter)
 

@@ -1,4 +1,4 @@
-﻿Public Class LoginView
+﻿Public Class RegisterView
 
 #Region "Properties"
     Public Property Username() As String
@@ -21,17 +21,18 @@
 #End Region
 
 #Region "Events"
-    Public Event SignIn()
-    Public Event Register()
+    Public Event SignUp()
+    Public Event LogIn()
 #End Region
 
 #Region "Event Handlers"
-    Private Sub btnLogin_Click(sender As Object, e As EventArgs) Handles btnLogin.Click
-        RaiseEvent SignIn()
+    Private Sub btnSignUp_Click(sender As Object, e As EventArgs) Handles btnSignUp.Click
+        RaiseEvent SignUp()
     End Sub
 
-    Private Sub btnRegister_Click(sender As Object, e As EventArgs) Handles btnRegister.Click
-        RaiseEvent Register()
+    Private Sub btnLogin_Click(sender As Object, e As EventArgs) Handles btnLogin.Click
+        RaiseEvent LogIn()
     End Sub
 #End Region
+
 End Class
