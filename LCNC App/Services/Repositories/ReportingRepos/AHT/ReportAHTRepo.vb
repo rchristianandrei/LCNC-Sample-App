@@ -28,6 +28,6 @@ Public Class ReportAHTRepo
             seconds += submitted.HandlingTime
         Next
 
-        Return TimeSpan.FromSeconds(seconds).ToString("hh\:mm\:ss")
+        Return TimeSpan.FromSeconds(seconds / submittedList.Count).ToString("hh\:mm\:ss")
     End Function
 End Class
