@@ -17,14 +17,17 @@ Module MainServices
         serviceCollection.AddSingleton(Of IFormControlFactory, FormControlFactory)
 
         serviceCollection.AddScoped(Of IFormsRepo, FormsRepo)(Function(provider) New FormsRepo(connectionString))
-        serviceCollection.AddScoped(Of ISubmittedDataRepo, SubmittedDataRepo)(Function(provider) New SubmittedDataRepo(connectionString))
         serviceCollection.AddScoped(Of IUsersRepo, UsersRepo)(Function(provider) New UsersRepo(connectionString))
+
+        serviceCollection.AddScoped(Of ISubmittedDataRepo, SubmittedDataRepo)(Function(provider) New SubmittedDataRepo(connectionString))
+        serviceCollection.AddScoped(Of IReportSubmittedCountRepo, ReportSubmittedCountRepo)(Function(provider) New ReportSubmittedCountRepo(connectionString))
 
         ' Feature Presenters
         serviceCollection.AddTransient(Of LoginPresenter)
         serviceCollection.AddTransient(Of RegisterPresenter)
 
         serviceCollection.AddTransient(Of ReportingPresenter)
+        serviceCollection.AddTransient(Of RealtimeReportSubmittedCountPresenter)
         serviceCollection.AddTransient(Of ExportRawReportPresenter)
 
         serviceCollection.AddTransient(Of FormWorkingPresenter)
