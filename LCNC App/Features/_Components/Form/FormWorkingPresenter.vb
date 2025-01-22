@@ -36,6 +36,7 @@
         Next
 
         Dim model As New SubmittedDataModel With {
+            .Username = Globals.CurrentUser.Username,
             .FormName = MyBase.formModel.FormText,
             .FormId = MyBase.formModel.Id,
             .Data = data

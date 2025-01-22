@@ -3,6 +3,8 @@
 Public Class FormModel
     Public Property Id As ObjectId
 
+    Public Property Username As String
+
     Public Property FormText As String
 
     Public Property FormWidth As Integer

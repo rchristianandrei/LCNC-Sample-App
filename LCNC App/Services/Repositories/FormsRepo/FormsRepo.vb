@@ -27,13 +27,13 @@ Public Class FormsRepo
         End If
     End Function
 
-    Public Async Function LoadAll() As Task(Of IEnumerable(Of FormModel)) Implements IFormsRepo.LoadAll
+    Public Async Function LoadAllOwned(username As String) As Task(Of IEnumerable(Of FormModel)) Implements IFormsRepo.LoadAllOwned
         Dim client As New MongoClient(New MongoUrl(connString))
 
         Dim database As IMongoDatabase = client.GetDatabase(dbName)
         Dim collection As IMongoCollection(Of FormModel) = database.GetCollection(Of FormModel)(colName)
 
-        Dim filter As FilterDefinition(Of FormModel) = Builders(Of FormModel).Filter.Empty
+        Dim filter As FilterDefinition(Of FormModel) = Builders(Of FormModel).Filter.Eq(Function(f) f.Username, username)
         Dim forms = Await collection.FindAsync(filter)
 
         Return Await forms.ToListAsync

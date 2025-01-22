@@ -4,11 +4,13 @@ Public Class LoginPresenter
 
     ' Services
     Private ReadOnly serviceProvider As IServiceProvider
+    Private ReadOnly usersRepo As IUsersRepo
 
-    Public Sub New(serviceProvider As IServiceProvider)
+    Public Sub New(serviceProvider As IServiceProvider, usersRepo As IUsersRepo)
         Me.serviceProvider = serviceProvider
+        Me.usersRepo = usersRepo
 
-        Me.PrepareEventHandlers
+        Me.PrepareEventHandlers()
     End Sub
 
     Private Sub PrepareEventHandlers()
@@ -20,9 +22,27 @@ Public Class LoginPresenter
 #End Region
 
 #Region "Event Handlers"
-    Private Sub SignIn()
-        Me.serviceProvider.GetService(Of MainPresenter).View.Show()
-        Me.View.Close()
+    Private Async Sub SignIn()
+
+        Try
+            Dim username = Me.View.Username
+            Dim password = Me.View.Password
+
+            Dim user = Await Me.usersRepo.GetOne(username, password)
+
+            If user Is Nothing Then
+                MsgBox("Invalid Credentials")
+                Return
+            End If
+
+            Globals.CurrentUser = user
+
+            Me.serviceProvider.GetService(Of MainPresenter).View.Show()
+            Me.View.Close()
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
     End Sub
 #End Region
 End Class

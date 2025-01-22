@@ -4,6 +4,8 @@ Imports MongoDB.Bson.Serialization.Attributes
 Public Class SubmittedDataModel
     Property Id As ObjectId
 
+    Property Username As String
+
     Property FormId As ObjectId
 
     Property FormName As String

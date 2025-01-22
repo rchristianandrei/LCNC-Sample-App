@@ -27,6 +27,12 @@ Public Class ExportRawReportView
         End Get
     End Property
 
+    Public ReadOnly Property ColUsernameIndex() As Integer
+        Get
+            Return Me.colUsername.Index
+        End Get
+    End Property
+
     Public ReadOnly Property ColFormIDIndex() As Integer
         Get
             Return Me.colFormID.Index

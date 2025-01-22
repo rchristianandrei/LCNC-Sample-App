@@ -56,6 +56,7 @@ Public Class ExportRawReportPresenter
                 Dim array(Me.view.DataGrid.ColumnCount) As Object
 
                 array(Me.view.ColIdlIndex) = datum.Id
+                array(Me.view.ColUsernameIndex) = datum.Username
                 array(Me.view.ColFormIDIndex) = datum.FormId
                 array(Me.view.ColFormNameIndex) = datum.FormName
                 array(Me.view.ColDateTimeIndex) = datum.DateTime

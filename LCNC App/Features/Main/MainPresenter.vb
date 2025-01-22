@@ -14,6 +14,8 @@ Public Class MainPresenter
     Public Sub New(serviceProvider As IServiceProvider)
         Me.serviceProvider = serviceProvider
 
+        Me._view.Text = $"{Me._view.Text} ({Globals.CurrentUser.Username})"
+
         Me.AddEventHandlers()
     End Sub
 

@@ -18,6 +18,7 @@ Module MainServices
 
         serviceCollection.AddScoped(Of IFormsRepo, FormsRepo)(Function(provider) New FormsRepo(connectionString))
         serviceCollection.AddScoped(Of ISubmittedDataRepo, SubmittedDataRepo)(Function(provider) New SubmittedDataRepo(connectionString))
+        serviceCollection.AddScoped(Of IUsersRepo, UsersRepo)(Function(provider) New UsersRepo(connectionString))
 
         ' Feature Presenters
         serviceCollection.AddTransient(Of LoginPresenter)

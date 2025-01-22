@@ -138,6 +138,8 @@ Public Class EditorPresenter
 
         Try
             Await Me.formsRepo.Save(Me.formModel)
+
+            MsgBox("Successfully saved the Form")
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
@@ -203,6 +205,7 @@ Public Class EditorPresenter
 
     Private Function CreateDefaultModel() As FormModel
         Return New FormModel With {
+            .Username = Globals.CurrentUser.Username,
             .FormText = Me.preview.Text,
             .FormWidth = Me.preview.Width,
             .FormHeight = Me.preview.Height,

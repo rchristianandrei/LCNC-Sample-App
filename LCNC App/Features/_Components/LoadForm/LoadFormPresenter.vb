@@ -34,7 +34,7 @@
 #Region "Event Handlers"
     Private Async Sub Shown(sender As Object, e As EventArgs)
         Try
-            Dim forms = Await Me.formsRepo.LoadAll
+            Dim forms = Await Me.formsRepo.LoadAllOwned(Globals.CurrentUser.Username)
 
             Me.View.FormsGrid.Rows.Clear()
             For Each form In forms

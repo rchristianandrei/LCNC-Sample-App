@@ -31,6 +31,7 @@ Partial Class ExportRawReportView
         Dim CustomizableEdges4 As Guna.UI2.WinForms.Suite.CustomizableEdges = New Guna.UI2.WinForms.Suite.CustomizableEdges()
         grdData = New Guna.UI2.WinForms.Guna2DataGridView()
         colId = New DataGridViewTextBoxColumn()
+        colUsername = New DataGridViewTextBoxColumn()
         colFormID = New DataGridViewTextBoxColumn()
         colFormName = New DataGridViewTextBoxColumn()
         colDateTimeSubmitted = New DataGridViewTextBoxColumn()
@@ -60,7 +61,7 @@ Partial Class ExportRawReportView
         DataGridViewCellStyle2.WrapMode = DataGridViewTriState.True
         grdData.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle2
         grdData.ColumnHeadersHeight = 35
-        grdData.Columns.AddRange(New DataGridViewColumn() {colId, colFormID, colFormName, colDateTimeSubmitted})
+        grdData.Columns.AddRange(New DataGridViewColumn() {colId, colUsername, colFormID, colFormName, colDateTimeSubmitted})
         DataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft
         DataGridViewCellStyle3.BackColor = Color.White
         DataGridViewCellStyle3.Font = New Font("Segoe UI", 9F)
@@ -103,6 +104,12 @@ Partial Class ExportRawReportView
         colId.HeaderText = "Id"
         colId.Name = "colId"
         colId.ReadOnly = True
+        ' 
+        ' colUsername
+        ' 
+        colUsername.HeaderText = "Username"
+        colUsername.Name = "colUsername"
+        colUsername.ReadOnly = True
         ' 
         ' colFormID
         ' 
@@ -211,6 +218,7 @@ Partial Class ExportRawReportView
     Private WithEvents dtpTo As DateTimePicker
     Private WithEvents lblTo As Guna.UI2.WinForms.Guna2HtmlLabel
     Private WithEvents colId As DataGridViewTextBoxColumn
+    Private WithEvents colUsername As DataGridViewTextBoxColumn
     Private WithEvents colFormID As DataGridViewTextBoxColumn
     Private WithEvents colFormName As DataGridViewTextBoxColumn
     Private WithEvents colDateTimeSubmitted As DataGridViewTextBoxColumn
