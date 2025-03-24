@@ -43,13 +43,16 @@ Public Class ExportRawReportPresenter
 
 #Region "EventHandlers"
     Private Async Sub LoadData()
-        If Me.view.FromDate > Me.view.ToDate Then
+        Dim fromDate = Me.view.FromDate.Date
+        Dim toDate = Me.view.ToDate.Date.AddDays(1)
+
+        If fromDate >= toDate Then
             MsgBox("Invalid Date Range")
             Return
         End If
 
         Try
-            Dim data = Await Me.submittedDataRepo.GetData(Me.formModel.Id, Me.view.FromDate, Me.view.ToDate)
+            Dim data = Await Me.submittedDataRepo.GetData(Me.formModel.Id, fromDate, toDate)
 
             Me.view.DataGrid.Rows.Clear()
             For Each datum In data
